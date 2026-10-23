@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F7F4EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171412" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<title>{{ workout.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F7F4EF; --surface:#FFFFFF; --surface2:#EFEAE2; --line:#DDD6CB;
+  --ink:#1C1917; --ink2:#5C5650; --ink3:#8A837B;
+  --accent:#D9482B; --accent-ink:#FFFFFF; --accent-soft:#FBE7E1;
+  --done:#2F7A4D; --done-soft:#E1F1E6;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171412; --surface:#221E1B; --surface2:#2C2724; --line:#3A342F;
+    --ink:#F3EEE7; --ink2:#B8AFA5; --ink3:#857C73;
+    --accent:#F0644A; --accent-ink:#1C1917; --accent-soft:#3A241E;
+    --done:#6FC08C; --done-soft:#1F3328;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171412; --surface:#221E1B; --surface2:#2C2724; --line:#3A342F;
+  --ink:#F3EEE7; --ink2:#B8AFA5; --ink3:#857C73;
+  --accent:#F0644A; --accent-ink:#1C1917; --accent-soft:#3A241E;
+  --done:#6FC08C; --done-soft:#1F3328;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--bg)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:16px/1.5 Barlow,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  padding-inline:16px;
+  padding-block:0 calc(150px + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+.wrap{max-width:500px;margin:0 auto}
+h1,h2,h3,.num,.big{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance}
+header{padding-block:24px 8px}
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
+  color:var(--ink3);text-decoration:none;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;
+}
+.back-link:hover{color:var(--accent)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:clamp(32px,9vw,44px);line-height:1;margin:6px 0 10px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--ink2);margin:0 0 16px;font-size:15px;line-height:1.4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat .big{font-size:24px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;background:var(--surface2);color:var(--ink2);font-weight:500}
+.chip.diff{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.progress{height:6px;background:var(--surface2);border-radius:3px;margin:18px 0 6px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--done);transition:width .3s}
+.progress-lbl{font-size:13px;color:var(--ink3);display:flex;justify-content:space-between;align-items:center}
+.rst-all{background:none;border:none;color:var(--ink3);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:0}
+section{margin-top:24px}
+h2{font-size:22px;margin:0 0 4px;font-weight:700;letter-spacing:.01em}
+.sec-note{color:var(--ink2);font-size:14px;margin:0 0 12px}
+.list{display:flex;flex-direction:column;gap:12px}
+.ex{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:14px 12px;display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:10px;
+  align-items:start;transition:background .2s,border-color .2s;
+}
+.ex.done{background:var(--done-soft);border-color:transparent}
+.ex .num{font-size:22px;font-weight:700;color:var(--ink3);line-height:1.1;padding-top:2px;font-variant-numeric:tabular-nums}
+.ex.done .num{color:var(--done)}
+.ex h3{font-size:19px;margin:0;font-weight:600;line-height:1.15}
+.dose{color:var(--accent);font-weight:600;font-size:14px;margin:4px 0 6px}
+.ex.done .dose{color:var(--done)}
+.muscles{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.muscles span{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--surface2);color:var(--ink2)}
+.cues{margin:0 0 8px;padding-left:18px;color:var(--ink2);font-size:14px;line-height:1.4}
+.cues li{margin-bottom:3px}
+.why{font-size:13px;color:var(--ink3);margin:0 0 10px;line-height:1.4}
+.why b{color:var(--ink2)}
+.frame-wrap{margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface2)}
+.frame-wrap img{display:block;width:100%;height:auto;object-fit:cover;max-height:300px}
+.frame-wrap video{display:block;width:100%;height:auto;max-height:300px}
+.check{
+  width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);
+  background:transparent;color:var(--ink3);display:inline-flex;align-items:center;
+  justify-content:center;cursor:pointer;padding:0;transition:all .15s ease;-webkit-user-select:none;
+}
+.check svg{width:20px;height:20px}
+.ex.done .check{background:var(--done);border-color:var(--done);color:#FFFFFF}
+.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px;line-height:1.4}
+.foot a{color:var(--accent);text-decoration:none}
+.bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:90;
+  background:var(--surface);border-top:1px solid var(--line);
+  box-shadow:0 -6px 20px rgba(0,0,0,.08);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+}
+.bar-in{
+  max-width:500px;margin:0 auto;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;
+}
+.t-big{
+  font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;font-size:32px;
+  font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.t-big.alert{color:var(--accent)}
+.t-lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-top:2px}
+.presets{display:flex;gap:4px}
+.presets button{
+  font:inherit;font-size:12px;font-weight:600;padding:6px 8px;border-radius:6px;
+  border:1px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer;
+}
+.presets button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ctls{display:flex;gap:6px}
+.ctl{
+  font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border-radius:8px;
+  border:1px solid var(--line);background:var(--surface2);color:var(--ink);cursor:pointer;
+}
+.ctl.go{background:var(--accent);color:#FFFFFF;border-color:transparent}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    {% if has_back_link %}
+    <a href="../index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      All Workouts
+    </a>
+    {% endif %}
+    <div class="eyebrow">{{ workout.category or 'Full Body' }} · {{ workout.difficulty or 'Workout' }}</div>
+    <h1>{{ workout.title }}</h1>
+    {% if workout.description %}
+    <p class="sub">{{ workout.description }}</p>
+    {% endif %}
+    
+    <div class="stats">
+      <div class="stat"><div class="big">{{ workout.estimated_duration or '20-30m' }}</div><div class="lbl">Duration</div></div>
+      <div class="stat"><div class="big">{{ workout.exercises|length }}</div><div class="lbl">Exercises</div></div>
+      <div class="stat"><div class="big">{{ workout.blocks_count or '1 Circuit' }}</div><div class="lbl">Blocks</div></div>
+    </div>
+
+    <div class="chips">
+      {% if workout.difficulty %}
+      <span class="chip diff">{{ workout.difficulty }}</span>
+      {% endif %}
+      {% for eq in workout.equipment %}
+      <span class="chip">{{ eq }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="progress"><i id="prog"></i></div>
+    <div class="progress-lbl">
+      <span id="prog-txt">0 of {{ workout.exercises|length }} done</span>
+      <button class="rst-all" id="reset-all">Reset</button>
+    </div>
+  </header>
+
+  <section>
+    <h2>Exercise Flow</h2>
+    <div class="sec-note">Check off each exercise as you complete sets. Rest timer at the bottom.</div>
+    <div class="list">
+      {% for ex in workout.exercises %}
+      <article class="ex" data-id="ex-{{ loop.index }}">
+        <div class="num">{{ "%02d" % loop.index }}</div>
+        <div>
+          <h3>{{ ex.title }}</h3>
+          <div class="dose">{{ ex.dose or '1 set' }}</div>
+          {% if ex.target_muscles %}
+          <div class="muscles">
+            {% for m in ex.target_muscles %}<span>{{ m }}</span>{% endfor %}
+          </div>
+          {% endif %}
+          {% if ex.cues %}
+          <ul class="cues">
+            {% for c in ex.cues %}<li>{{ c }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+          {% if ex.why %}
+          <p class="why"><b>Why:</b> {{ ex.why }}</p>
+          {% endif %}
+          {% if ex.image %}
+          <div class="frame-wrap">
+            <img src="{{ ex.image }}" alt="{{ ex.title }} visual guide" loading="lazy">
+          </div>
+          {% elif ex.video_src %}
+          <div class="frame-wrap">
+            <video src="{{ ex.video_src }}" controls playsinline preload="metadata" aria-label="{{ ex.title }} guide"></video>
+          </div>
+          {% endif %}
+        </div>
+        <button class="check" aria-label="Mark done">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8.5l3 3 7-7"/></svg>
+        </button>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if workout.tips %}
+  <section>
+    <h2>Trainer Tips</h2>
+    <ul class="cues" style="padding-left:20px;margin-top:8px;">
+      {% for tip in workout.tips %}
+      <li>{{ tip }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <div class="foot">
+    {% if workout.source_url %}
+    <p>Source Video: <a href="{{ workout.source_url }}" target="_blank" rel="noopener">Watch on {{ workout.platform or 'Original Platform' }} ↗</a></p>
+    {% endif %}
+    <p>Check-offs are saved to this device automatically.</p>
+  </div>
+</div>
+
+<div class="bar" role="region" aria-label="Rest Timer">
+  <div class="bar-in">
+    <div><div class="t-big" id="tdisp">0:30</div><div class="t-lbl" id="tlbl">Rest timer</div></div>
+    <div class="presets" id="presets">
+      <button data-s="30" class="on">30s</button>
+      <button data-s="45">45s</button>
+      <button data-s="60">1:00</button>
+      <button data-s="0">Stopwatch</button>
+    </div>
+    <div class="ctls">
+      <button class="ctl go" id="go">Start</button>
+      <button class="ctl" id="rst">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY = 'workout-done-{{ workout.id }}';
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { done = {}; }
+  var cards = document.querySelectorAll('.ex');
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(done)); } catch(e) {} }
+  function render(){
+    var n = 0;
+    cards.forEach(function(c){
+      var d = !!done[c.dataset.id];
+      c.classList.toggle('done', d);
+      c.querySelector('.check').setAttribute('aria-pressed', d);
+      if(d) n++;
+    });
+    var total = cards.length;
+    var pct = total > 0 ? (n / total * 100) : 0;
+    document.getElementById('prog').style.width = pct + '%';
+    document.getElementById('prog-txt').textContent = n === total && total > 0 ? 'Workout complete! 🎉' : n + ' of ' + total + ' done';
+  }
+  cards.forEach(function(c){
+    c.querySelector('.check').addEventListener('click', function(){
+      done[c.dataset.id] = !done[c.dataset.id];
+      save();
+      render();
+    });
+  });
+  document.getElementById('reset-all').addEventListener('click', function(){
+    done = {};
+    save();
+    render();
+  });
+  render();
+
+  // Timer logic
+  var disp = document.getElementById('tdisp'), lbl = document.getElementById('tlbl'), go = document.getElementById('go');
+  var preset = 30, remaining = 30, elapsed = 0, running = false, last = 0, raf;
+  function fmt(s){
+    s = Math.max(0, Math.ceil(s));
+    return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+  }
+  function show(){
+    if (preset === 0) {
+      disp.textContent = fmt(elapsed);
+      disp.classList.remove('alert');
+      lbl.textContent = 'Stopwatch';
+    } else {
+      disp.textContent = fmt(remaining);
+      disp.classList.toggle('alert', remaining <= 5 && remaining > 0);
+      lbl.textContent = remaining <= 0 ? 'Time up!' : 'Rest timer';
+    }
+  }
+  function tick(now){
+    var dt = (now - last) / 1000;
+    last = now;
+    if (preset === 0) {
+      elapsed += dt;
+    } else {
+      remaining -= dt;
+      if (remaining <= 0) {
+        remaining = 0;
+        stop();
+        try {
+          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        } catch(e) {}
+      }
+    }
+    show();
+    if (running) raf = requestAnimationFrame(tick);
+  }
+  function start(){
+    if (preset !== 0 && remaining <= 0) remaining = preset;
+    running = true;
+    go.textContent = 'Pause';
+    last = performance.now();
+    raf = requestAnimationFrame(tick);
+  }
+  function stop(){
+    running = false;
+    go.textContent = 'Start';
+    cancelAnimationFrame(raf);
+  }
+  go.addEventListener('click', function(){ running ? stop() : start(); });
+  document.getElementById('rst').addEventListener('click', function(){
+    stop();
+    remaining = preset;
+    elapsed = 0;
+    show();
+  });
+  document.getElementById('presets').addEventListener('click', function(e){
+    var b = e.target.closest('button');
+    if (!b) return;
+    document.querySelectorAll('#presets button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    preset = +b.dataset.s;
+    stop();
+    remaining = preset;
+    elapsed = 0;
+    show();
+  });
+  show();
+})();
+</script>
+</body>
+</html>

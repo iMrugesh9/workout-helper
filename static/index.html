@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#12100E" />
+  <title>Workout Helper — AI Video to Training Routine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, video { max-width: 100%; height: auto; }
+    :root {
+      --bg: #12100E;
+      --surface: #1B1815;
+      --surface2: #26221E;
+      --surface3: #332E29;
+      --line: #38322B;
+      --line2: #4D453C;
+      --ink: #F7F3EE;
+      --ink2: #B5ACA1;
+      --ink3: #7D746A;
+      --accent: #E05338;
+      --accent-soft: rgba(224, 83, 56, 0.14);
+      --accent-glow: rgba(224, 83, 56, 0.28);
+      --done: #4EAD71;
+      --done-soft: rgba(78, 173, 113, 0.15);
+      --font-display: "Barlow Condensed", "Arial Narrow", -apple-system, sans-serif;
+      --font-body: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }}
+    html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+
+    /* Top Nav */
+    nav.top-bar {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      color: #FFF;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-sync {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: 8px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .btn-sync:hover {
+      background: var(--surface3);
+      border-color: var(--accent);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 24px 0 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      color: var(--ink3);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all .15s ease;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Hero / Input Box */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .hero-card h2 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .hero-card p {
+      color: var(--ink2);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+    .url-form {
+      display: flex;
+      gap: 10px;
+    }
+    .url-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .url-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .btn-extract {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .15s;
+    }
+    .btn-extract:hover { background: #f0644a; }
+    .btn-extract:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* Loading status */
+    .status-panel {
+      display: none;
+      background: var(--surface2);
+      border: 1px solid var(--line2);
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+    .status-panel.active { display: block; }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--ink3);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Preview section */
+    .preview-box {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .preview-box.active { display: block; }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+    .p-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .p-meta {
+      font-size: 13px;
+      color: var(--ink3);
+    }
+    .p-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-open-mobile {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #FFF;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border-radius: 8px;
+    }
+    .btn-open-mobile:hover { background: #f0644a; }
+
+    /* Library list */
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .lib-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      transition: all .15s ease;
+    }
+    .lib-card:hover {
+      border-color: var(--line2);
+      transform: translateY(-2px);
+    }
+    .lib-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .lib-desc {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-bottom: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .lib-meta {
+      font-size: 12px;
+      color: var(--ink3);
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .lib-actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-del {
+      background: transparent;
+      border: none;
+      color: var(--ink3);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 4px;
+    }
+    .btn-del:hover { color: #f87171; }
+
+    @media (max-width: 600px) {
+      .url-form { flex-direction: column; }
+      .preview-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <nav class="top-bar">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <span>Workout Helper</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-sync" id="btnSync">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span id="syncText">Sync to GitHub</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="extract">Extract Workout</button>
+    <button class="tab-btn" data-tab="library">Workout Library (<span id="libCount">0</span>)</button>
+  </div>
+
+  <!-- Tab 1: Extract -->
+  <section id="tab-extract">
+    <div class="hero-card">
+      <h2>Add New Workout</h2>
+      <p>Paste a YouTube Short or Instagram Reel link. AI analyzes on-screen exercises, extracts form cues, reps, and sharp keyframes, then generates a phone-friendly standalone page.</p>
+      
+      <form class="url-form" id="extractForm">
+        <input type="url" id="urlInput" class="url-input" placeholder="e.g. https://www.instagram.com/reel/abc123/ or https://youtube.com/shorts/xyz" required />
+        <button type="submit" class="btn-extract" id="btnExtract">
+          <span>Extract Workout</span>
+        </button>
+      </form>
+
+      <div class="status-panel" id="statusPanel">
+        <span class="spinner"></span>
+        <span id="statusText">Processing workout video... This usually takes 15–30 seconds.</span>
+      </div>
+    </div>
+
+    <div class="preview-box" id="previewBox">
+      <div class="preview-header">
+        <div>
+          <h3 class="p-title" id="pTitle">Workout Title</h3>
+          <div class="p-meta" id="pMeta">Duration · Exercises · Equipment</div>
+        </div>
+        <div class="p-actions">
+          <a href="#" target="_blank" class="btn-open-mobile" id="btnOpenMobile">
+            <span>Open Mobile View</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </div>
+      <p id="pDesc" style="color:var(--ink2);margin-bottom:16px;font-size:14px;"></p>
+      <div id="pExercises"></div>
+    </div>
+  </section>
+
+  <!-- Tab 2: Library -->
+  <section id="tab-library" style="display:none;">
+    <div class="library-grid" id="libGrid"></div>
+  </section>
+</div>
+
+<script>
+let workouts = [];
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById('tab-extract').style.display = tab === 'extract' ? 'block' : 'none';
+    document.getElementById('tab-library').style.display = tab === 'library' ? 'block' : 'none';
+    if (tab === 'library') loadLibrary();
+  });
+});
+
+async function loadLibrary() {
+  try {
+    const res = await fetch('/api/workouts');
+    workouts = await res.json();
+    document.getElementById('libCount').textContent = workouts.length;
+    renderLibrary();
+  } catch (e) {
+    console.error('Failed to load workouts:', e);
+  }
+}
+
+function renderLibrary() {
+  const grid = document.getElementById('libGrid');
+  if (!workouts.length) {
+    grid.innerHTML = '<p style="color:var(--ink3);grid-column:1/-1;">No workouts saved yet. Extract your first workout above!</p>';
+    return;
+  }
+
+  grid.innerHTML = workouts.map(w => `
+    <article class="lib-card">
+      <div style="font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;margin-bottom:4px;">
+        ${w.category || 'Full Body'} · ${w.difficulty || 'Intermediate'}
+      </div>
+      <h3 class="lib-title">${w.title}</h3>
+      <p class="lib-desc">${w.description || 'Guided workout routine.'}</p>
+      <div class="lib-meta">
+        <span>⏱️ ${w.estimated_duration || '20m'}</span>
+        <span>🔥 ${(w.exercises || []).length} moves</span>
+      </div>
+      <div class="lib-actions">
+        <a href="/workouts/${w.id}" target="_blank" style="font-weight:700;color:var(--accent);font-size:14px;display:inline-flex;align-items:center;gap:4px;">
+          Open Workout ↗
+        </a>
+        <button class="btn-del" onclick="deleteWorkout('${w.id}')" title="Delete Workout">Delete</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+async function deleteWorkout(id) {
+  if (!confirm('Are you sure you want to delete this workout?')) return;
+  try {
+    const res = await fetch(`/api/workouts/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      loadLibrary();
+    }
+  } catch(e) {
+    alert('Delete failed');
+  }
+}
+
+// Extraction form
+const form = document.getElementById('extractForm');
+const btnExtract = document.getElementById('btnExtract');
+const statusPanel = document.getElementById('statusPanel');
+const statusText = document.getElementById('statusText');
+const previewBox = document.getElementById('previewBox');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = document.getElementById('urlInput').value.trim();
+  if (!url) return;
+
+  btnExtract.disabled = true;
+  statusPanel.classList.add('active');
+  statusText.textContent = 'Downloading video and analyzing workout with Gemini AI...';
+  previewBox.classList.remove('active');
+
+  try {
+    const res = await fetch('/api/extract', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || 'Extraction failed');
+    }
+
+    statusPanel.classList.remove('active');
+    btnExtract.disabled = false;
+
+    // Show preview
+    document.getElementById('pTitle').textContent = data.title;
+    document.getElementById('pMeta').textContent = `${data.estimated_duration || '25m'} · ${(data.exercises || []).length} Exercises · ${(data.equipment || []).join(', ') || 'No equipment'}`;
+    document.getElementById('pDesc').textContent = data.description || '';
+    document.getElementById('btnOpenMobile').href = `/workouts/${data.id}`;
+
+    const exList = document.getElementById('pExercises');
+    exList.innerHTML = (data.exercises || []).map((ex, i) => `
+      <div style="background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;display:flex;gap:12px;align-items:center;">
+        <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--accent);width:28px;">
+          ${(i+1).toString().padStart(2, '0')}
+        </div>
+        <div style="flex:1;">
+          <h4 style="font-size:16px;margin-bottom:2px;">${ex.title}</h4>
+          <div style="font-size:13px;color:var(--accent);">${ex.dose || '1 set'}</div>
+          ${ex.cues && ex.cues.length ? `<div style="font-size:12px;color:var(--ink2);margin-top:4px;">${ex.cues[0]}</div>` : ''}
+        </div>
+        ${ex.image ? `<img src="${ex.image}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;" alt="${ex.title}">` : ''}
+      </div>
+    `).join('');
+
+    previewBox.classList.add('active');
+    loadLibrary();
+
+  } catch (err) {
+    statusPanel.classList.add('active');
+    statusText.textContent = `❌ ${err.message}`;
+    btnExtract.disabled = false;
+  }
+});
+
+// GitHub Sync button
+document.getElementById('btnSync').addEventListener('click', async () => {
+  const syncBtn = document.getElementById('btnSync');
+  const syncText = document.getElementById('syncText');
+  syncBtn.disabled = true;
+  syncText.textContent = 'Syncing...';
+  try {
+    const res = await fetch('/api/sync', { method: 'POST' });
+    const data = await res.json();
+    syncText.textContent = data.git_synced ? 'Synced to GitHub!' : 'Static Site Built';
+    setTimeout(() => { syncText.textContent = 'Sync to GitHub'; syncBtn.disabled = false; }, 3000);
+  } catch (e) {
+    syncText.textContent = 'Sync Failed';
+    setTimeout(() => { syncText.textContent = 'Sync to GitHub'; syncBtn.disabled = false; }, 3000);
+  }
+});
+
+loadLibrary();
+</script>
+</body>
+</html>

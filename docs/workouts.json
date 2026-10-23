@@ -1,0 +1,167 @@
+[
+  {
+    "id": "day25-full-body",
+    "title": "Day 25 Full Body Challenge",
+    "category": "Full Body",
+    "difficulty": "Intermediate",
+    "estimated_duration": "25–30 min",
+    "blocks_count": "4 Blocks",
+    "description": "Short home workout challenge: upper body push, lower body compound squat, posture & shoulder blade retraction with broom handle, and chair step-up progression.",
+    "equipment": [
+      "Yoga Mat",
+      "Broom / Mop Handle",
+      "Sturdy Chair"
+    ],
+    "exercises": [
+      {
+        "id": "warm",
+        "title": "General warm-up",
+        "dose": "3–5 min",
+        "target_muscles": [
+          "Whole body"
+        ],
+        "cues": [
+          "Arm circles, hip circles, leg swings, a few slow bodyweight squats.",
+          "Not shown in the video — suggested, adjust as you like."
+        ],
+        "why": "",
+        "video_src": "",
+        "image": "",
+        "timestamp_percent": 0
+      },
+      {
+        "id": "pushup",
+        "title": "Push-ups",
+        "dose": "1 × 10 reps",
+        "target_muscles": [
+          "Chest",
+          "Shoulders",
+          "Core"
+        ],
+        "cues": [
+          "Hands under shoulders, body in one straight line.",
+          "Lower chest to the mat, press back up."
+        ],
+        "why": "strengthens shoulders, chest and core.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "squat",
+        "title": "Bodyweight squats",
+        "dose": "1 × 10 reps · no rest before",
+        "target_muscles": [
+          "Quads",
+          "Glutes",
+          "Lower body"
+        ],
+        "cues": [
+          "Feet shoulder-width, sit hips back and down, chest up.",
+          "Drive through the heels to stand."
+        ],
+        "why": "targets the lower body directly after the upper-body push.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "prone-raise",
+        "title": "Prone shoulder raises",
+        "dose": "1 × 10 reps",
+        "target_muscles": [
+          "Rear delts",
+          "Upper back",
+          "Shoulder joint"
+        ],
+        "cues": [
+          "Lie prone, wide grip on the stick, arms straight out in front.",
+          "Lift the stick and carry it back over your head toward your upper back, then return it to the front. Keep the neck long."
+        ],
+        "why": "shoulder joint mobility and posture correction.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "pullback",
+        "title": "Elbow pullbacks with chest lift",
+        "dose": "1 × 10 reps",
+        "target_muscles": [
+          "Upper back",
+          "Rhomboids",
+          "Chest opener"
+        ],
+        "cues": [
+          "From the prone raise position, pull the elbows back toward the ribs, drawing the stick to the chest.",
+          "Lift the chest slightly as you pull; squeeze the shoulder blades, then extend back out."
+        ],
+        "why": "engages the upper-back muscles and opens up the chest.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "overhead",
+        "title": "Prone overhead stick raise",
+        "dose": "1 × 10 reps",
+        "target_muscles": [
+          "Lower traps",
+          "Scapular stabilizers"
+        ],
+        "cues": [
+          "Narrow grip, arms straight overhead in line with the body.",
+          "Lift the stick a few inches, reaching long; lower with control."
+        ],
+        "why": "straightens the lower traps and stabilizes the shoulder blades during overhead movements.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "stepup",
+        "title": "Chair step-up progression",
+        "dose": "4 × 10 reps",
+        "target_muscles": [
+          "Legs",
+          "Glutes",
+          "Core",
+          "Balance"
+        ],
+        "cues": [
+          "Use a stable chair against a wall. Place the whole foot on the seat, not just the toes.",
+          "The number of minutes for the \"keep going\" round isn't legible in the video; fill the time left inside your 30 minutes."
+        ],
+        "why": "the creator's favourite for the legs — by the last set he could barely stand on them.",
+        "image": "",
+        "timestamp_percent": 0,
+        "has_video": true
+      },
+      {
+        "id": "cool",
+        "title": "Cool-down",
+        "dose": "2–3 min",
+        "target_muscles": [
+          "Recovery"
+        ],
+        "cues": [
+          "Walk it off, then stretch quads, hip flexors and chest.",
+          "Not in the video — suggested."
+        ],
+        "why": "",
+        "video_src": "",
+        "image": "",
+        "timestamp_percent": 0
+      }
+    ],
+    "tips": [
+      "Push-ups: 10 reps clean form, maintain plank alignment.",
+      "Prone raises: keep arms straight and engage mid-back.",
+      "Step-ups: push through the whole foot on the chair, avoid launching off bottom foot."
+    ],
+    "source_url": "https://www.instagram.com/reel/DcO60PMhOga/",
+    "platform": "Instagram Reels",
+    "thumbnail_url": "",
+    "generated_at": "2026-10-23T16:00:00"
+  }
+]
