@@ -6,6 +6,7 @@ cd "$DIR"
 
 PID_FILE="$DIR/server.pid"
 LOG_FILE="$DIR/server.log"
+ICON="$DIR/static/workout-icon.svg"
 PORT=8081
 VENV_PY="$DIR/.venv/bin/python"
 
@@ -38,7 +39,11 @@ get_lan_ip() {
 
 start_server() {
   local pid
+  local lan_ip
+  lan_ip=$(get_lan_ip)
+
   if pid=$(get_pid); then
+    notify-send -i "$ICON" "Workout Helper Server" "Server is ALREADY running on port $PORT (PID $pid)!\nLocal: http://localhost:$PORT\nMobile: http://${lan_ip}:$PORT" 2>/dev/null || true
     echo "Workout Helper Server is ALREADY running on port $PORT (PID $pid)!"
     xdg-open "http://localhost:$PORT" >/dev/null 2>&1 &
     return 0
@@ -60,14 +65,14 @@ start_server() {
     count=$((count + 1))
   done
 
-  local lan_ip
-  lan_ip=$(get_lan_ip)
   if [ $ready -eq 1 ]; then
+    notify-send -i "$ICON" "Workout Helper Server" "Server Started Successfully! 🚀\nLocal: http://localhost:$PORT\nMobile: http://${lan_ip}:$PORT" 2>/dev/null || true
     echo "Server Started Successfully! 🚀"
     echo "Local:  http://localhost:$PORT"
     echo "Mobile: http://${lan_ip}:$PORT"
     xdg-open "http://localhost:$PORT" >/dev/null 2>&1 &
   else
+    notify-send -i "$ICON" -u critical "Workout Helper Server" "Server started (PID $new_pid) but port $PORT is taking longer to respond. Check server.log." 2>/dev/null || true
     echo "Server started (PID $new_pid) but port $PORT is taking longer to respond. Check server.log."
   fi
 }
@@ -86,8 +91,10 @@ stop_server() {
       kill -9 "$pid" 2>/dev/null || true
     fi
     rm -f "$PID_FILE"
+    notify-send -i "$ICON" "Workout Helper Server" "Server Stopped 🛑" 2>/dev/null || true
     echo "Server Stopped 🛑"
   else
+    notify-send -i "$ICON" "Workout Helper Server" "Server is not currently running." 2>/dev/null || true
     echo "Server is not currently running."
   fi
 }
@@ -96,6 +103,59 @@ restart_server() {
   stop_server
   sleep 1
   start_server
+}
+
+view_logs() {
+  if which mate-terminal >/dev/null 2>&1; then
+    mate-terminal --title="Workout Helper Server Logs" -e "tail -f $LOG_FILE" &
+  elif which x-terminal-emulator >/dev/null 2>&1; then
+    x-terminal-emulator -e "tail -f $LOG_FILE" &
+  else
+    zenity --text-info --title="Workout Helper Server Logs" --filename="$LOG_FILE" --width=700 --height=500 &
+  fi
+}
+
+gui_action() {
+  local pid
+  local lan_ip
+  lan_ip=$(get_lan_ip)
+
+  if pid=$(get_pid); then
+    local action
+    action=$(zenity --list \
+      --title="Workout Helper Server (Active 🟢)" \
+      --text="Server is RUNNING on PID $pid\n\n🌐 Local:   http://localhost:$PORT\n📱 Mobile:  http://${lan_ip}:$PORT\n\nSelect an action:" \
+      --column="Action" \
+      "🛑 Stop Server" \
+      "🌐 Open Local Web App (Port 8081)" \
+      "🚀 Open Live GitHub Pages Site" \
+      "🔄 Restart Server" \
+      "📋 View Server Logs" \
+      --width=450 --height=340 2>/dev/null || true)
+
+    case "$action" in
+      "🛑 Stop Server")
+        stop_server
+        ;;
+      "🌐 Open Local Web App (Port 8081)")
+        xdg-open "http://localhost:$PORT" >/dev/null 2>&1 &
+        ;;
+      "🚀 Open Live GitHub Pages Site")
+        xdg-open "https://imrugesh9.github.io/workout-helper/" >/dev/null 2>&1 &
+        ;;
+      "🔄 Restart Server")
+        restart_server
+        ;;
+      "📋 View Server Logs")
+        view_logs
+        ;;
+      *)
+        exit 0
+        ;;
+    esac
+  else
+    start_server
+  fi
 }
 
 case "$1" in
@@ -116,9 +176,9 @@ case "$1" in
     fi
     ;;
   logs)
-    tail -f "$LOG_FILE"
+    view_logs
     ;;
   *)
-    start_server
+    gui_action
     ;;
 esac
