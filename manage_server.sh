@@ -13,13 +13,13 @@ get_pid() {
   if [ -f "$PID_FILE" ]; then
     local p
     p=$(cat "$PID_FILE" 2>/dev/null || true)
-    if [ -n "$p" ] && kill -0 "$p" 2>/dev/null && ps -p "$p" -o cmd= | grep -q "server.py"; then
+    if [ -n "$p" ] && kill -0 "$p" 2>/dev/null && ps -p "$p" -o cmd= | grep -q "server\.py"; then
       echo "$p"
       return 0
     fi
   fi
   local p
-  p=$(pgrep -f "python.*server\.py" | head -n 1)
+  p=$(pgrep -f "workout.*server\.py" | head -n 1)
   if [ -n "$p" ]; then
     echo "$p"
     return 0
@@ -45,7 +45,7 @@ start_server() {
   fi
 
   echo "Starting Workout Helper Server on port $PORT..."
-  nohup "$VENV_PY" server.py >> "$LOG_FILE" 2>&1 &
+  setsid "$VENV_PY" server.py >> "$LOG_FILE" 2>&1 &
   local new_pid=$!
   echo "$new_pid" > "$PID_FILE"
 

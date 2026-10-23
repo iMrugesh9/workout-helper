@@ -13,6 +13,15 @@ Usage:
 
 import os
 import sys
+from pathlib import Path
+
+# Auto-switch to .venv python if not already active
+ROOT_DIR = Path(__file__).resolve().parent
+if sys.prefix == getattr(sys, "base_prefix", sys.prefix):
+    venv_py = ROOT_DIR / ".venv" / "bin" / "python"
+    if venv_py.exists():
+        os.execv(str(venv_py), [str(venv_py)] + sys.argv)
+
 import re
 import json
 import base64
@@ -20,7 +29,6 @@ import shutil
 import tempfile
 import subprocess
 import urllib.request
-from pathlib import Path
 from datetime import datetime
 
 from dotenv import load_dotenv

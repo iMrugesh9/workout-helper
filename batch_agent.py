@@ -11,16 +11,23 @@ Usage:
 
 import sys
 import os
+from pathlib import Path
+
+# Auto-switch to .venv python if not already active
+ROOT_DIR = Path(__file__).resolve().parent
+if sys.prefix == getattr(sys, "base_prefix", sys.prefix):
+    venv_py = ROOT_DIR / ".venv" / "bin" / "python"
+    if venv_py.exists():
+        os.execv(str(venv_py), [str(venv_py)] + sys.argv)
+
 import csv
 import glob
 import json
 import time
 import tempfile
 import traceback
-from pathlib import Path
 from datetime import datetime
 
-ROOT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from workout_agent import (

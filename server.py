@@ -8,6 +8,15 @@ and auto-syncs static HTML pages to docs/ for GitHub Pages.
 
 import os
 import sys
+from pathlib import Path
+
+# Auto-switch to .venv python if not already active
+ROOT_DIR = Path(__file__).resolve().parent
+if sys.prefix == getattr(sys, "base_prefix", sys.prefix):
+    venv_py = ROOT_DIR / ".venv" / "bin" / "python"
+    if venv_py.exists():
+        os.execv(str(venv_py), [str(venv_py)] + sys.argv)
+
 import re
 import json
 import base64
@@ -17,7 +26,6 @@ import tempfile
 import threading
 import subprocess
 import traceback
-from pathlib import Path
 from datetime import datetime
 
 from flask import Flask, jsonify, request, send_from_directory

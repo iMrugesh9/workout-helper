@@ -14,10 +14,17 @@ import subprocess
 from pathlib import Path
 from datetime import datetime
 
-ROOT_DIR = Path(__file__).parent
+ROOT_DIR = Path(__file__).resolve().parent
 DATA_FILE = ROOT_DIR / "data" / "workouts.json"
 DOCS_DIR = ROOT_DIR / "docs"
 TEMPLATE_DIR = ROOT_DIR / "template"
+
+# Auto-switch to .venv python if not already active
+ROOT_DIR = Path(__file__).resolve().parent
+if sys.prefix == getattr(sys, "base_prefix", sys.prefix):
+    venv_py = ROOT_DIR / ".venv" / "bin" / "python"
+    if venv_py.exists():
+        os.execv(str(venv_py), [str(venv_py)] + sys.argv)
 
 
 def load_workouts() -> list:
