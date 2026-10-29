@@ -55,16 +55,20 @@ if not GEMINI_API_KEY:
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 GEMINI_MODELS = [
-    "gemini-flash-lite-latest",
-    "gemini-3.5-flash-lite",
     "gemini-3.5-flash",
+    "gemini-3.7-flash",
     "gemini-3.8-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-flash-latest",
 ]
 
 WORKOUT_PROMPT = """
-You are a certified master fitness trainer and workout analyst.
-I will give you the transcript, title, description, or video visual stream of a workout video (Reel / Short).
-Extract ALL workout information and return it as a valid JSON object with EXACTLY this structure:
+You are a certified master fitness trainer and workout video analyst.
+Observe the video visuals, on-screen text, audio, and exercises demonstrated in this workout video.
+Extract ALL distinct workout exercises demonstrated in the video.
+For EVERY exercise, you MUST identify its exact start and end time in seconds (start_sec, end_sec) in this source video.
+
+Return ONLY a valid JSON object with EXACTLY this structure:
 
 {
   "workout_name": "Title of the workout (e.g. Day 25 Full Body Challenge)",
@@ -85,6 +89,8 @@ Extract ALL workout information and return it as a valid JSON object with EXACTL
         "Concise cue 2 on form"
       ],
       "why": "Brief 1-sentence explanation of benefit or target",
+      "start_sec": 5.0,
+      "end_sec": 12.0,
       "timestamp_percent": 15
     }
   ],
@@ -96,9 +102,10 @@ Extract ALL workout information and return it as a valid JSON object with EXACTL
 }
 
 Rules:
-- Be thorough and precise. Extract every distinct exercise performed.
+- Identify EVERY distinct exercise demonstrated in the video. Do not combine multiple exercises into one.
+- Be accurate with start_sec and end_sec so a short video snippet of each exercise can be trimmed cleanly.
+- timestamp_percent should be between 0 and 100 indicating where the best keyframe is located.
 - If reps/duration are explicitly shown on screen or spoken, use them. If unspecified, provide an accurate trainer recommendation and note it.
-- Provide accurate timestamp_percent (0 to 100) indicating where this exercise is demonstrated in the video clip.
 - Return ONLY the raw JSON object. No markdown code blocks, no explanation.
 
 Video Title: __TITLE__
@@ -168,6 +175,21 @@ def get_yt_dlp_bin() -> str:
     return system_bin if system_bin else "yt-dlp"
 
 
+def get_ffmpeg_bin() -> str:
+    try:
+        import imageio_ffmpeg
+        exe = imageio_ffmpeg.get_ffmpeg_exe()
+        if exe and os.path.exists(exe):
+            return exe
+    except Exception:
+        pass
+    venv_ffmpeg = ROOT_DIR / ".venv" / "bin" / "ffmpeg"
+    if venv_ffmpeg.exists():
+        return str(venv_ffmpeg)
+    system_bin = shutil.which("ffmpeg")
+    return system_bin if system_bin else "ffmpeg"
+
+
 def fetch_video_info(url: str, tmpdir: str) -> dict:
     yt_dlp_bin = get_yt_dlp_bin()
 
@@ -234,36 +256,31 @@ def extract_workout_with_gemini(video_info: dict) -> dict:
     video_path = video_info.get("video_path")
     file_ref = None
 
-    if len(transcript) >= 30:
-        print(f"🤖 Sending transcript ({len(transcript)} chars) to Gemini...")
-        prompt = (
-            WORKOUT_PROMPT
-            .replace("__TITLE__", str(video_info.get("title", "Workout")))
-            .replace("__TRANSCRIPT__", transcript[:12000])
-        )
-        content_payload = prompt
-    elif video_path and os.path.exists(video_path):
-        print("🤖 Uploading video to Gemini for multimodal video analysis...")
+    prompt = (
+        WORKOUT_PROMPT
+        .replace("__TITLE__", str(video_info.get("title", "Workout")))
+        .replace("__TRANSCRIPT__", transcript[:10000] if transcript else "Observe all exercises demonstrated in the video.")
+    )
+
+    # For workout reels and shorts, visual demonstration is essential
+    if video_path and os.path.exists(video_path):
+        print(f"🎬 Uploading video ({os.path.getsize(video_path)} bytes) to Gemini for multimodal analysis...")
         try:
             file_ref = client.files.upload(file=video_path)
-            print(f"   Video uploaded: {file_ref.name}")
+            # Poll until active
+            while file_ref.state.name == "PROCESSING":
+                time.sleep(1.5)
+                file_ref = client.files.get(name=file_ref.name)
+            if file_ref.state.name != "ACTIVE":
+                print(f"⚠️ Video upload state: {file_ref.state.name}, falling back to prompt only")
+                file_ref = None
+            else:
+                print(f"   Video uploaded and active: {file_ref.name}")
         except Exception as e:
-            print(f"   Upload error: {e}")
+            print(f"⚠️ Video upload failed: {e}")
             file_ref = None
 
-        prompt = (
-            WORKOUT_PROMPT
-            .replace("__TITLE__", str(video_info.get("title", "Workout")))
-            .replace("__TRANSCRIPT__", "Observe the video visuals, on-screen text, and exercise movements to extract the routine.")
-        )
-        content_payload = [file_ref, prompt] if file_ref else prompt
-    else:
-        prompt = (
-            WORKOUT_PROMPT
-            .replace("__TITLE__", str(video_info.get("title", "Workout")))
-            .replace("__TRANSCRIPT__", f"Video Title: {video_info.get('title')}. Extract standard workout exercises.")
-        )
-        content_payload = prompt
+    content_payload = [file_ref, prompt] if file_ref else prompt
 
     raw = None
     last_error = None
@@ -275,15 +292,17 @@ def extract_workout_with_gemini(video_info: dict) -> dict:
                 contents=content_payload,
             )
             raw = resp.text.strip()
-            print("   Gemini response received!")
+            print(f"   Gemini response received from {model}!")
             break
         except Exception as e:
+            print(f"   Model {model} failed: {e}")
             last_error = e
             time.sleep(1)
 
     if file_ref:
         try:
             client.files.delete(name=file_ref.name)
+            print("   Cleaned up remote video file on Gemini.")
         except Exception:
             pass
 
@@ -315,9 +334,13 @@ def extract_visual_frames(video_path: str, workout_data: dict) -> dict:
             return workout_data
 
         duration = total_frames / fps
-        print(f"📸 Extracting sharpest keyframes via OpenCV (Duration: {duration:.1f}s)...")
+        cap.release()
 
-        def get_sharpest_frame_b64(target_sec, max_w=640, quality=75):
+        print(f"🎥 Processing exercise video snippets & keyframes (Duration: {duration:.1f}s, FPS: {fps:.1f})...")
+        ffmpeg_bin = get_ffmpeg_bin()
+
+        def get_sharpest_frame_b64(target_sec, max_w=640, quality=80):
+            cap_img = cv2.VideoCapture(video_path)
             center_frame = int(target_sec * fps)
             best_frame = None
             best_score = -1
@@ -325,8 +348,8 @@ def extract_visual_frames(video_path: str, workout_data: dict) -> dict:
             # Sample 5 neighboring frames to eliminate motion blur
             for off in [-4, -2, 0, 2, 4]:
                 idx = max(0, min(total_frames - 1, center_frame + off))
-                cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
-                ret, frame = cap.read()
+                cap_img.set(cv2.CAP_PROP_POS_FRAMES, idx)
+                ret, frame = cap_img.read()
                 if not ret or frame is None:
                     continue
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -335,6 +358,7 @@ def extract_visual_frames(video_path: str, workout_data: dict) -> dict:
                     best_score = score
                     best_frame = frame
 
+            cap_img.release()
             if best_frame is None:
                 return None
 
@@ -347,22 +371,104 @@ def extract_visual_frames(video_path: str, workout_data: dict) -> dict:
             b64 = base64.b64encode(buf).decode('utf-8')
             return f"data:image/jpeg;base64,{b64}"
 
+        def extract_snippet_b64(start_t, end_t):
+            if not ffmpeg_bin:
+                return None
+            with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tf:
+                out_path = tf.name
+
+            try:
+                # 1. Try with AAC audio at 48k mono
+                cmd = [
+                    ffmpeg_bin, "-y",
+                    "-ss", f"{start_t:.2f}",
+                    "-to", f"{end_t:.2f}",
+                    "-i", video_path,
+                    "-vf", "scale=min(360\\,iw):-2",
+                    "-c:v", "libx264",
+                    "-preset", "fast",
+                    "-crf", "28",
+                    "-c:a", "aac", "-b:a", "48k", "-ac", "1",
+                    "-movflags", "+faststart",
+                    out_path
+                ]
+                res = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+                if res.returncode == 0 and os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+                    with open(out_path, "rb") as vf:
+                        v_b64 = base64.b64encode(vf.read()).decode("utf-8")
+                    return f"data:video/mp4;base64,{v_b64}"
+
+                # 2. Fallback without audio
+                cmd_noaudio = [
+                    ffmpeg_bin, "-y",
+                    "-ss", f"{start_t:.2f}",
+                    "-to", f"{end_t:.2f}",
+                    "-i", video_path,
+                    "-vf", "scale=min(360\\,iw):-2",
+                    "-c:v", "libx264",
+                    "-preset", "fast",
+                    "-crf", "28",
+                    "-an",
+                    "-movflags", "+faststart",
+                    out_path
+                ]
+                res2 = subprocess.run(cmd_noaudio, capture_output=True, text=True, timeout=30)
+                if res2.returncode == 0 and os.path.exists(out_path) and os.path.getsize(out_path) > 1000:
+                    with open(out_path, "rb") as vf:
+                        v_b64 = base64.b64encode(vf.read()).decode("utf-8")
+                    return f"data:video/mp4;base64,{v_b64}"
+            except Exception as se:
+                print(f"⚠️ Snippet extraction error ({start_t}-{end_t}s): {se}")
+            finally:
+                if os.path.exists(out_path):
+                    try:
+                        os.remove(out_path)
+                    except Exception:
+                        pass
+            return None
+
         exercises = workout_data.get("exercises", [])
         num_ex = len(exercises)
         for i, ex in enumerate(exercises):
+            start_sec = ex.get("start_sec")
+            end_sec = ex.get("end_sec")
             pct = ex.get("timestamp_percent")
-            if pct is not None and isinstance(pct, (int, float)) and 5 <= pct <= 95:
-                sec = duration * (pct / 100.0)
-            else:
-                sec = duration * ((i + 1) / (num_ex + 1))
 
-            b64_img = get_sharpest_frame_b64(sec)
+            valid_time = (
+                start_sec is not None and end_sec is not None
+                and isinstance(start_sec, (int, float)) and isinstance(end_sec, (int, float))
+                and 0 <= start_sec < duration and end_sec > start_sec
+            )
+
+            if valid_time:
+                s = max(0.0, float(start_sec))
+                e = min(duration, float(end_sec))
+                if (e - s) > 12.0:
+                    e = s + 12.0
+                mid_sec = (s + e) / 2.0
+            elif pct is not None and isinstance(pct, (int, float)) and 0 <= pct <= 100:
+                mid_sec = duration * (pct / 100.0)
+                s = max(0.0, mid_sec - 3.5)
+                e = min(duration, s + 7.0)
+            else:
+                mid_sec = duration * ((i + 0.5) / max(1, num_ex))
+                s = max(0.0, mid_sec - 3.5)
+                e = min(duration, s + 7.0)
+
+            print(f"   ✂️ Snipping exercise {i+1}/{num_ex}: '{ex.get('title')}' ({s:.1f}s – {e:.1f}s)...")
+            b64_video = extract_snippet_b64(s, e)
+            if b64_video:
+                ex["video_src"] = b64_video
+                print(f"      ✅ Video snippet created ({len(b64_video)} chars)")
+            else:
+                print(f"      ⚠️ Video snippet failed, falling back to screenshot")
+
+            b64_img = get_sharpest_frame_b64(mid_sec)
             if b64_img:
                 ex["image"] = b64_img
 
-        cap.release()
     except Exception as e:
-        print(f"⚠️ OpenCV frame extraction warning: {e}")
+        print(f"⚠️ Media extraction warning: {e}")
 
     return workout_data
 

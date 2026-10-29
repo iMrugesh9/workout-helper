@@ -57,6 +57,8 @@ def generate_static_site() -> Path:
             if e_copy.get("video_src", "").startswith("data:"):
                 e_copy["has_video"] = True
                 del e_copy["video_src"]
+            if e_copy.get("image", "").startswith("data:"):
+                del e_copy["image"]
             exs.append(e_copy)
         w_copy["exercises"] = exs
         light_workouts.append(w_copy)
@@ -77,7 +79,7 @@ def generate_static_site() -> Path:
             f.write(rendered_html)
 
     # 3. Generate docs/index.html (The Workout Hub Dashboard)
-    workouts_json_str = json.dumps(workouts, ensure_ascii=False)
+    workouts_json_str = json.dumps(light_workouts, ensure_ascii=False)
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en">

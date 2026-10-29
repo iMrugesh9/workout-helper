@@ -50,9 +50,13 @@ start_server() {
   fi
 
   echo "Starting Workout Helper Server on port $PORT..."
-  setsid "$VENV_PY" server.py >> "$LOG_FILE" 2>&1 &
-  local new_pid=$!
-  echo "$new_pid" > "$PID_FILE"
+  if systemctl --user list-unit-files workout-helper.service >/dev/null 2>&1; then
+    systemctl --user start workout-helper.service
+  else
+    setsid "$VENV_PY" server.py >> "$LOG_FILE" 2>&1 &
+    local new_pid=$!
+    echo "$new_pid" > "$PID_FILE"
+  fi
 
   local count=0
   local ready=0
@@ -81,14 +85,18 @@ stop_server() {
   local pid
   if pid=$(get_pid); then
     echo "Stopping Workout Helper Server (PID $pid)..."
-    kill "$pid" 2>/dev/null || true
-    local count=0
-    while kill -0 "$pid" 2>/dev/null && [ $count -lt 6 ]; do
-      sleep 0.5
-      count=$((count + 1))
-    done
-    if kill -0 "$pid" 2>/dev/null; then
-      kill -9 "$pid" 2>/dev/null || true
+    if systemctl --user is-active --quiet workout-helper.service; then
+      systemctl --user stop workout-helper.service
+    else
+      kill "$pid" 2>/dev/null || true
+      local count=0
+      while kill -0 "$pid" 2>/dev/null && [ $count -lt 6 ]; do
+        sleep 0.5
+        count=$((count + 1))
+      done
+      if kill -0 "$pid" 2>/dev/null; then
+        kill -9 "$pid" 2>/dev/null || true
+      fi
     fi
     rm -f "$PID_FILE"
     notify-send -i "$ICON" "Workout Helper Server" "Server Stopped 🛑" 2>/dev/null || true
@@ -100,9 +108,15 @@ stop_server() {
 }
 
 restart_server() {
-  stop_server
-  sleep 1
-  start_server
+  if systemctl --user is-active --quiet workout-helper.service; then
+    systemctl --user restart workout-helper.service
+    sleep 1
+    start_server
+  else
+    stop_server
+    sleep 1
+    start_server
+  fi
 }
 
 view_logs() {

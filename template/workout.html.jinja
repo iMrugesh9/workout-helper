@@ -88,9 +88,9 @@ h2{font-size:22px;margin:0 0 4px;font-weight:700;letter-spacing:.01em}
 .cues li{margin-bottom:3px}
 .why{font-size:13px;color:var(--ink3);margin:0 0 10px;line-height:1.4}
 .why b{color:var(--ink2)}
-.frame-wrap{margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface2)}
-.frame-wrap img{display:block;width:100%;height:auto;object-fit:cover;max-height:300px}
-.frame-wrap video{display:block;width:100%;height:auto;max-height:300px}
+.frame-wrap{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000;display:flex;align-items:center;justify-content:center}
+.frame-wrap img{display:block;width:100%;height:auto;object-fit:cover;max-height:360px}
+.frame-wrap video, .vid{display:block;width:100%;height:auto;max-height:65vh;background:#000;object-fit:contain}
 .check{
   width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);
   background:transparent;color:var(--ink3);display:inline-flex;align-items:center;
@@ -190,13 +190,13 @@ h2{font-size:22px;margin:0 0 4px;font-weight:700;letter-spacing:.01em}
           {% if ex.why %}
           <p class="why"><b>Why:</b> {{ ex.why }}</p>
           {% endif %}
-          {% if ex.image %}
+          {% if ex.video_src %}
+          <div class="frame-wrap">
+            <video class="vid" src="{{ ex.video_src }}" controls playsinline preload="metadata" {% if ex.image %}poster="{{ ex.image }}"{% endif %} loop aria-label="{{ ex.title }} guide"></video>
+          </div>
+          {% elif ex.image %}
           <div class="frame-wrap">
             <img src="{{ ex.image }}" alt="{{ ex.title }} visual guide" loading="lazy">
-          </div>
-          {% elif ex.video_src %}
-          <div class="frame-wrap">
-            <video src="{{ ex.video_src }}" controls playsinline preload="metadata" aria-label="{{ ex.title }} guide"></video>
           </div>
           {% endif %}
         </div>

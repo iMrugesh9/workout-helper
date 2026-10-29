@@ -5,6 +5,7 @@ jinja2
 python-dotenv
 opencv-python-headless
 pillow
+imageio-ffmpeg
 # Optional: for audio transcription fallback when no subtitles are available
 # openai-whisper
 
