@@ -1,5 +1,102 @@
 [
   {
+    "id": "dumbbell-back-row-variations-g-5b7d8e",
+    "title": "Dumbbell Back Row Variations Guide",
+    "category": "Upper Body",
+    "difficulty": "Intermediate",
+    "estimated_duration": "10–15 min",
+    "blocks_count": "1 Circuit",
+    "description": "A focused upper body tutorial demonstrating how different elbow angles and hand positions shift activation across the middle back, upper back, lower lats, and erector spinae during dumbbell bent-over rows.",
+    "equipment": [
+      "Dumbbells"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Dumbbell Middle Back Row",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Rhomboids",
+          "Middle Trapezius",
+          "Latissimus Dorsi"
+        ],
+        "cues": [
+          "Hinge forward at the hips with a flat back",
+          "Flare elbows at approximately 45 degrees and pull toward your mid-torso"
+        ],
+        "why": "Targets the rhomboids and mid-traps to build overall back thickness and posture.",
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "timestamp_percent": 12,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Wide-Elbow Dumbbell Row",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Upper Trapezius",
+          "Rear Deltoids",
+          "Rhomboids"
+        ],
+        "cues": [
+          "Flare elbows out wide at roughly 90 degrees",
+          "Pull dumbbells up toward the upper chest level"
+        ],
+        "why": "Shifts emphasis to the rear deltoids and upper traps for complete upper back development.",
+        "start_sec": 5.0,
+        "end_sec": 10.0,
+        "timestamp_percent": 36,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Close-Grip Lat Row",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Latissimus Dorsi",
+          "Lower Trapezius"
+        ],
+        "cues": [
+          "Keep elbows tucked tightly against your torso",
+          "Pull dumbbells back towards your hip pockets"
+        ],
+        "why": "Maximizes lower lat contraction to enhance back width and V-taper structure.",
+        "start_sec": 10.0,
+        "end_sec": 15.0,
+        "timestamp_percent": 60,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Single-Arm Dumbbell Bent-Over Row",
+        "dose": "3 × 10–12 reps per side",
+        "target_muscles": [
+          "Erector Spinae",
+          "Latissimus Dorsi",
+          "Core"
+        ],
+        "cues": [
+          "Support your torso position while rowing one dumbbell",
+          "Drive elbow upward and squeeze your back while maintaining core alignment"
+        ],
+        "why": "Isolates back muscles unilaterally while engaging spinal erectors and core stability.",
+        "start_sec": 15.0,
+        "end_sec": 20.0,
+        "timestamp_percent": 85,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Adjusting your elbow angle relative to your torso changes muscle recruitment across the back.",
+      "Maintain a neutral spine and engaged core throughout all bent-over row variations."
+    ],
+    "source_url": "https://www.instagram.com/reel/DadCW56qMK3/?utm_source=ig_web_copy_link",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.71878-15/733849768_1744956593618270_3220483304539933619_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ig_cache_key=MzkzNTMxMjAxOTUwMDYxNDMyNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=ULFX1MODGLkQ7kNvwFztsMJ&_nc_oc=AdrPJiUFJBcYlqx6UcfcIt7NZmY7OStomofN-UkPjhxzXoa-TGg5fpd4dyFRGBzuX6VH9TwrE3j6qWk3UO2dBKvp&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=XHD0IPwMUB1txDbNnBCHyQ&_nc_ss=7b689&oh=00_AQSXDcoDq5aN2FdNO3qD00i1HO9Vs06I6rpQFeGlGRn43g&oe=6AE90D53",
+    "generated_at": "2026-10-29T16:54:03.001675"
+  },
+  {
     "id": "full-body-dumbbell-workout-rou-1e90ab",
     "title": "Full Body Dumbbell Workout Routine",
     "category": "Full Body",
@@ -201,90 +298,6 @@
     "platform": "Instagram",
     "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/625082007_18399640372177804_4955847805399964118_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ig_cache_key=MzgyMTQ5MzQwNzM5OTU2NjcyNTE4Mzk5NjQwMzY2MTc3ODA0.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjU0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=gJ4sFqf-dBMQ7kNvwGMhSHB&_nc_oc=Adrge-KAGrUmags2XcuQedMT6nSON-4fxd5XqLVLukhuyENQzl5ZqSQi2t-FsH_rG9mp3u-NzdP8ZYr0h2xgaY6s&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=A2BOfDnCCND-Db5iPg2_rw&_nc_ss=7b689&oh=00_AQRJE3v4GKhKVqp-syqAWJEazdCoUFlnRk3K_23W5T-caA&oe=6AE90C62",
     "generated_at": "2026-10-29T16:53:00.408698"
-  },
-  {
-    "id": "dumbbell-back-variations-5934e9",
-    "title": "Dumbbell Back Variations",
-    "category": "Upper Body",
-    "difficulty": "Intermediate",
-    "estimated_duration": "10–15 min",
-    "blocks_count": "1 Block",
-    "description": "A comprehensive upper body routine focusing on different regions of the back using dumbbells with varying grip angles and body positioning.",
-    "equipment": [
-      "Dumbbells"
-    ],
-    "exercises": [
-      {
-        "step_number": 1,
-        "title": "Middle Back Dumbbell Row",
-        "dose": "3 × 10–12 reps",
-        "target_muscles": [
-          "Middle Back",
-          "Lats",
-          "Rhomboids"
-        ],
-        "cues": [
-          "Hinge forward at the hips with a flat back",
-          "Pull dumbbells toward hips targeting middle back"
-        ],
-        "why": "Builds thickness and strength in the middle back region.",
-        "timestamp_percent": 1
-      },
-      {
-        "step_number": 2,
-        "title": "Upper Back Dumbbell Row",
-        "dose": "3 × 10–12 reps",
-        "target_muscles": [
-          "Upper Back",
-          "Rear Delts",
-          "Traps"
-        ],
-        "cues": [
-          "Flare elbows outward as you pull",
-          "Keep upper body stable and squeeze shoulder blades"
-        ],
-        "why": "Targets the upper back and rear shoulders for posture and width.",
-        "timestamp_percent": 7
-      },
-      {
-        "step_number": 3,
-        "title": "Lower Lat Dumbbell Row",
-        "dose": "3 × 10–12 reps",
-        "target_muscles": [
-          "Lower Lats",
-          "Lats"
-        ],
-        "cues": [
-          "Keep elbows tight to your sides",
-          "Drive elbows back and down toward pockets"
-        ],
-        "why": "Isolates and develops the lower lat fibers.",
-        "timestamp_percent": 13
-      },
-      {
-        "step_number": 4,
-        "title": "Middle Traps Dumbbell Shrug Row",
-        "dose": "3 × 10–12 reps",
-        "target_muscles": [
-          "Middle Traps",
-          "Upper Back"
-        ],
-        "cues": [
-          "Maintain controlled hinge position",
-          "Focus on retracting scapula at the top"
-        ],
-        "why": "Strengthens middle traps and scapular retractors.",
-        "timestamp_percent": 18
-      }
-    ],
-    "tips": [
-      "Vary your grip and elbow angle to target different areas of the back.",
-      "Keep your core braced and spine neutral throughout all row variations."
-    ],
-    "source_url": "https://www.instagram.com/reel/DadCW56qMK3/?utm_source=ig_web_copy_link",
-    "platform": "Instagram",
-    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.71878-15/733849768_1744956593618270_3220483304539933619_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ig_cache_key=MzkzNTMxMjAxOTUwMDYxNDMyNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=ULFX1MODGLkQ7kNvwFztsMJ&_nc_oc=AdrPJiUFJBcYlqx6UcfcIt7NZmY7OStomofN-UkPjhxzXoa-TGg5fpd4dyFRGBzuX6VH9TwrE3j6qWk3UO2dBKvp&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=hil_kbBU5eSjKVx81TL7Ag&_nc_ss=7b689&oh=00_AQSoFqpOLfxdlS0Qox5DmjwlazwZEriEwX5AZRQ4Qxuv5g&oe=6AE90D53",
-    "generated_at": "2026-10-29T16:23:22.485158"
   },
   {
     "id": "easy-home-chair-workout-227028",
