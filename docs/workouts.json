@@ -1,5 +1,120 @@
 [
   {
+    "id": "chair-core-abs-fat-loss-workou-6d4b63",
+    "title": "Chair Core & Abs Fat Loss Workout",
+    "category": "Core",
+    "difficulty": "Intermediate",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "1 Circuit (3–4 Rounds)",
+    "description": "An intense home core routine utilizing a simple chair to sculpt upper abs, lower abs, and obliques. Perform each movement for high reps to maximize calorie burn and core definition.",
+    "equipment": [
+      "Chair",
+      "Yoga Mat"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Seated Straight Leg Lifts",
+        "dose": "4 × 25 reps",
+        "target_muscles": [
+          "Upper Abs",
+          "Rectus Abdominis",
+          "Hip Flexors"
+        ],
+        "cues": [
+          "Sit on the floor with hands behind hips for support",
+          "Keep legs straight and lift them vertically towards the chair height"
+        ],
+        "why": "Engages the entire abdominal wall with emphasis on upper core stability.",
+        "start_sec": 7.5,
+        "end_sec": 11.0,
+        "timestamp_percent": 31,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Seated Knee Tucks",
+        "dose": "4 × 25 reps",
+        "target_muscles": [
+          "Lower Abs",
+          "Rectus Abdominis"
+        ],
+        "cues": [
+          "Pull knees close into the chest while leaning torso back slightly",
+          "Extend legs forward without letting heels touch the floor"
+        ],
+        "why": "Targets lower abdominal fibers to build core strength and definition.",
+        "start_sec": 11.0,
+        "end_sec": 15.0,
+        "timestamp_percent": 43,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Seated Alternating Leg Extensions",
+        "dose": "4 × 25 reps",
+        "target_muscles": [
+          "Lower Abs",
+          "Obliques",
+          "Hip Flexors"
+        ],
+        "cues": [
+          "Maintain a lean-back position supported by your hands",
+          "Kick legs back and forth in an alternating fluid motion under the chair"
+        ],
+        "why": "Enhances V-line definition and hip flexor control.",
+        "start_sec": 15.0,
+        "end_sec": 18.5,
+        "timestamp_percent": 56,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Seated Scissor Kicks",
+        "dose": "4 × 25 reps",
+        "target_muscles": [
+          "Obliques",
+          "Lower Abs"
+        ],
+        "cues": [
+          "Keep legs elevated slightly off the mat",
+          "Criss-cross your legs horizontally in a rhythmic motion"
+        ],
+        "why": "Fires up the obliques and transverse abdominis through horizontal abduction/adduction.",
+        "start_sec": 18.5,
+        "end_sec": 20.5,
+        "timestamp_percent": 65,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Chair Elevated Crunches",
+        "dose": "4 × 25 reps",
+        "target_muscles": [
+          "Upper Abs",
+          "Core"
+        ],
+        "cues": [
+          "Rest calves elevated on the chair seat with knees bent at 90 degrees",
+          "Lift shoulders off the floor and reach forward toward the chair"
+        ],
+        "why": "Isolates upper abs by removing momentum and lower body involvement.",
+        "start_sec": 20.5,
+        "end_sec": 24.0,
+        "timestamp_percent": 74,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Complete 3 to 4 full rounds of all 5 exercises with a 60-second rest between rounds.",
+      "Perform this session 3 times weekly alongside a controlled diet for maximum results."
+    ],
+    "source_url": "https://www.instagram.com/reel/Dej5U7Ch1QU/?utm_source=ig_web_copy_link",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/851828954_18011525813977623_3776139225605258927_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=NDAwOTMwMDIxOTcyMzczMTk4ODE4MDExNTI1ODEwOTc3NjIz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=nSMRhAWyGtEQ7kNvwFhfjpP&_nc_oc=AdpYRGE9KFW1ZWOcKiWxH7iyDy0n843JCTr50xhLe7eef0fkeXplrAWQ2E5brtOialfxM8IMl_1EvC3IT_8Mv1BW&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=okSNd8QrS5TDws4c3lIj2g&_nc_ss=7b689&oh=00_AQS2Z_0Vjg8H5ID1PkWQ_i5TKO7oWeCt9t8LlPjy0hzHbA&oe=6AE8F4B9",
+    "generated_at": "2026-10-29T16:55:38.274008"
+  },
+  {
     "id": "dumbbell-back-row-variations-g-5b7d8e",
     "title": "Dumbbell Back Row Variations Guide",
     "category": "Upper Body",
