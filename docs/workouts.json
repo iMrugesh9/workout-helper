@@ -1,5 +1,209 @@
 [
   {
+    "id": "upper-body-posture-arm-toning--33cf20",
+    "title": "Upper Body Posture & Arm Toning Dumbbell Workout",
+    "category": "Upper Body",
+    "difficulty": "Beginner",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "5 Targeted Circuits",
+    "description": "A targeted dumbbell routine designed to fix rounded shoulders, improve posture, and shape upper body muscles including chest, shoulders, triceps, and upper back.",
+    "equipment": [
+      "Dumbbells"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Dumbbell Supinated Front Raise",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Upper Chest",
+          "Anterior Deltoids"
+        ],
+        "cues": [
+          "Hold dumbbells with palms facing up",
+          "Raise arms to chest height with control, keeping core engaged"
+        ],
+        "why": "Targets the clavicular head of the upper chest and front shoulders to lift and tone.",
+        "start_sec": 1.0,
+        "end_sec": 3.0,
+        "timestamp_percent": 6,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Dumbbell Close-Grip Front Press",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Upper Chest",
+          "Front Delts",
+          "Triceps"
+        ],
+        "cues": [
+          "Keep palms facing each other with dumbbells held together",
+          "Press upward directly in front of body while maintaining tension"
+        ],
+        "why": "Engages the inner upper chest and anterior shoulder fibers.",
+        "start_sec": 3.0,
+        "end_sec": 5.0,
+        "timestamp_percent": 12,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Standing Dumbbell External Rotation",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Rotator Cuff",
+          "Rear Deltoids",
+          "Upper Back"
+        ],
+        "cues": [
+          "Keep elbows tucked near waist at 90 degrees",
+          "Rotate forearms outward to open up chest and pull shoulder blades together"
+        ],
+        "why": "Strengthens shoulder external rotators to fix rounded-forward posture.",
+        "start_sec": 7.0,
+        "end_sec": 9.0,
+        "timestamp_percent": 24,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Dumbbell High Row / Goalpost Raise",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Rhomboids",
+          "Rear Delts",
+          "Upper Traps"
+        ],
+        "cues": [
+          "Raise elbows out to the sides at 90 degrees",
+          "Squeeze upper back muscles at peak contraction"
+        ],
+        "why": "Pulls scapulae back into neutral alignment to correct hunching.",
+        "start_sec": 9.0,
+        "end_sec": 12.0,
+        "timestamp_percent": 32,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Dumbbell Shoulder Press",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Lateral Deltoids",
+          "Anterior Deltoids",
+          "Triceps"
+        ],
+        "cues": [
+          "Press weights overhead without arching lower back",
+          "Lower dumbbells until elbows form a 90-degree angle"
+        ],
+        "why": "Builds shoulder cap definition and overall upper body strength.",
+        "start_sec": 13.0,
+        "end_sec": 16.0,
+        "timestamp_percent": 44,
+        "has_video": true
+      },
+      {
+        "step_number": 6,
+        "title": "Dumbbell Lateral Raise",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Side Deltoids"
+        ],
+        "cues": [
+          "Raise arms out to shoulder level with a subtle bend in elbows",
+          "Lower with controlled speed without swinging torso"
+        ],
+        "why": "Widens shoulders visually to narrow the waist and improve upper silhouette.",
+        "start_sec": 17.0,
+        "end_sec": 20.0,
+        "timestamp_percent": 56,
+        "has_video": true
+      },
+      {
+        "step_number": 7,
+        "title": "Overhead Dumbbell Tricep Extension",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Triceps (Long Head)"
+        ],
+        "cues": [
+          "Hold dumbbell vertically overhead with elbows pointed forward",
+          "Lower weight behind head and extend fully upwards"
+        ],
+        "why": "Firms and tightens the back of arms to eliminate arm flab.",
+        "start_sec": 21.0,
+        "end_sec": 23.0,
+        "timestamp_percent": 68,
+        "has_video": true
+      },
+      {
+        "step_number": 8,
+        "title": "Dumbbell Tricep Kickbacks",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Triceps"
+        ],
+        "cues": [
+          "Hinge forward at hips with upper arms parallel to body",
+          "Extend forearms backward until elbows lock out fully"
+        ],
+        "why": "Isolates triceps at peak contraction for maximum muscle tone.",
+        "start_sec": 24.0,
+        "end_sec": 26.0,
+        "timestamp_percent": 75,
+        "has_video": true
+      },
+      {
+        "step_number": 9,
+        "title": "Dumbbell Bent-Over Row",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Latissimus Dorsi",
+          "Rhomboids",
+          "Middle Back"
+        ],
+        "cues": [
+          "Hinge forward with flat back and tight core",
+          "Pull elbows backward toward hips, squeezing lat muscles"
+        ],
+        "why": "Reduces back fat and strengthens spinal posture muscles.",
+        "start_sec": 27.0,
+        "end_sec": 29.0,
+        "timestamp_percent": 84,
+        "has_video": true
+      },
+      {
+        "step_number": 10,
+        "title": "Dumbbell Reverse Fly",
+        "dose": "3 sets × 10-12 reps",
+        "target_muscles": [
+          "Rear Deltoids",
+          "Upper Back"
+        ],
+        "cues": [
+          "Maintain bent-over posture with soft elbows",
+          "Fly arms out wide horizontally to squeeze rear shoulders"
+        ],
+        "why": "Strengthens posterior shoulder head for balanced upper body posture.",
+        "start_sec": 30.0,
+        "end_sec": 32.0,
+        "timestamp_percent": 93,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Perform 3 sets of 10-12 reps per movement with light to moderate dumbbells.",
+      "Focus on slow eccentric control and full range of motion for optimal posture alignment."
+    ],
+    "source_url": "https://www.instagram.com/p/DbGuEMmoLko/",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.71878-15/752485020_900617415819531_1985772250886548675_n.jpg?stp=dst-jpegr_e15_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ig_cache_key=Mzk0NzA0NDcyMTk4NzIwNTQxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5oZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=rLSpCM4dtuwQ7kNvwEKbRaK&_nc_oc=AdppZrPJIre5xvHXNne2MFrMDz5NYsG5ZcByTplTiLBljuC8E8OG1F82yxxeBTvM8YLnBTUC_g4fTeEFIbZ5fqkA&_nc_zt=23&se=-1&_nc_ht=instagram.famd4-1.fna&_nc_gid=YROJ0bPhgz_snQVjFRqCdg&_nc_ss=7b689&oh=00_AQSz-_gdqZ91d0AMr3EG95xpl2Kh1iaFu9JMds6CMcI6_Q&oe=6AE8FFFB",
+    "generated_at": "2026-10-29T16:58:50.816494"
+  },
+  {
     "id": "full-body-dumbbell-routine-dadc94",
     "title": "Full Body Dumbbell Routine",
     "category": "Full Body",
@@ -604,44 +808,6 @@
     "platform": "Instagram",
     "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/851828954_18011525813977623_3776139225605258927_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=NDAwOTMwMDIxOTcyMzczMTk4ODE4MDExNTI1ODEwOTc3NjIz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=lnTYlx2CFiAQ7kNvwGiw4-3&_nc_oc=AdrVLkAusEpNXt2qmg38WxGJRLwx1f16-aBRqzHeoSrNuik_t8DspwyPA1aT6HRFscB_T6hWW-k2k0xeP3z2ZxWZ&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=C1HGrbS-K4qGNL87CC4adw&_nc_ss=70689&oh=00_AQNb7yc9nEZ6ch75zy112OaFgs_hW1YvOew4dXEjRL_9ow&oe=6AE143F9",
     "generated_at": "2026-10-23T21:10:42.312832"
-  },
-  {
-    "id": "fix-bad-posture-tone-arms-work-2c4dbe",
-    "title": "Fix Bad Posture & Tone Arms Workout",
-    "category": "Upper Body",
-    "difficulty": "Beginner",
-    "estimated_duration": "15 min",
-    "blocks_count": "1 Circuit",
-    "description": "A targeted upper body session designed to correct bad posture and tone the arms using bodyweight or light resistance. Perform 3 sets of 10-12 repetitions for optimal strength and toning results.",
-    "equipment": [
-      "Bodyweight / None"
-    ],
-    "exercises": [
-      {
-        "step_number": 1,
-        "title": "Posture Correction and Arm Toning Exercises",
-        "dose": "3 × 10-12 reps",
-        "target_muscles": [
-          "Shoulders",
-          "Upper Back",
-          "Arms"
-        ],
-        "cues": [
-          "Keep your core engaged and spine neutral throughout the movement.",
-          "Focus on controlled pacing and squeeze the muscles at peak contraction."
-        ],
-        "why": "Improves alignment, strengthens the upper back to combat slouching, and sculpts the arms.",
-        "timestamp_percent": 50
-      }
-    ],
-    "tips": [
-      "Prioritize form over speed to effectively target the postural muscles.",
-      "Stay consistent and incorporate this routine into your weekly schedule for noticeable improvements."
-    ],
-    "source_url": "https://www.instagram.com/p/DbGuEMmoLko/",
-    "platform": "Instagram",
-    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.71878-15/752485020_900617415819531_1985772250886548675_n.jpg?stp=dst-jpegr_e15_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ig_cache_key=Mzk0NzA0NDcyMTk4NzIwNTQxNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5oZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=gR-i9AnL1FoQ7kNvwF37B4A&_nc_oc=AdoiF076_fkpLKV3hMbfNf3mnDVxcdoz_nBK7TKnksK-sbGMvF3mp12AK6jTnfF2iS0JYtkS4z317gc20CwAAWPw&_nc_zt=23&se=-1&_nc_ht=instagram.famd4-1.fna&_nc_gid=FM7aLC6jGUycP-ZD9JvcSQ&_nc_ss=70689&oh=00_AQNS1p6UEimfFZjhj1ubFwFF4PaooAdfpxsBMeqHoRlsRg&oe=6AE14F3B",
-    "generated_at": "2026-10-23T19:24:34.063416"
   },
   {
     "id": "day25-full-body",
