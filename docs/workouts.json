@@ -770,46 +770,6 @@
     "generated_at": "2026-10-29T16:53:00.408698"
   },
   {
-    "id": "easy-home-chair-workout-227028",
-    "title": "Easy Home Chair Workout",
-    "category": "Core",
-    "difficulty": "Beginner",
-    "estimated_duration": "10-15 min",
-    "blocks_count": "1 Circuit",
-    "description": "A simple and effective home-friendly workout utilizing a chair to target core strength and stability. Perfect for beginners looking to start their fitness journey at home with minimal equipment.",
-    "equipment": [
-      "Chair",
-      "Yoga Mat",
-      "Bodyweight / None"
-    ],
-    "exercises": [
-      {
-        "step_number": 1,
-        "title": "Chair Seated Core Exercise",
-        "dose": "3 × 12 reps",
-        "target_muscles": [
-          "Abdominals",
-          "Core",
-          "Hip Flexors"
-        ],
-        "cues": [
-          "Keep your core tight and engaged throughout the movement",
-          "Maintain an upright posture and control the motion"
-        ],
-        "why": "Strengthens the abdominal wall and improves core stability.",
-        "timestamp_percent": 50
-      }
-    ],
-    "tips": [
-      "Ensure your chair is stable and placed on a non-slip surface before starting.",
-      "Focus on controlled movements rather than speed to maximize muscle engagement."
-    ],
-    "source_url": "https://www.instagram.com/reel/Dej5U7Ch1QU/?utm_source=ig_web_copy_link&exln=NTc4MTIwNjQ2YQ==",
-    "platform": "Instagram",
-    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/851828954_18011525813977623_3776139225605258927_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ig_cache_key=NDAwOTMwMDIxOTcyMzczMTk4ODE4MDExNTI1ODEwOTc3NjIz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=lnTYlx2CFiAQ7kNvwGiw4-3&_nc_oc=AdrVLkAusEpNXt2qmg38WxGJRLwx1f16-aBRqzHeoSrNuik_t8DspwyPA1aT6HRFscB_T6hWW-k2k0xeP3z2ZxWZ&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=C1HGrbS-K4qGNL87CC4adw&_nc_ss=70689&oh=00_AQNb7yc9nEZ6ch75zy112OaFgs_hW1YvOew4dXEjRL_9ow&oe=6AE143F9",
-    "generated_at": "2026-10-23T21:10:42.312832"
-  },
-  {
     "id": "day25-full-body",
     "title": "Day 25 Full Body Challenge",
     "category": "Full Body",
