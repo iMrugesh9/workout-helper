@@ -7,12 +7,14 @@ Extract structured, interactive workout routines from **YouTube Shorts** and **I
 ## ✨ Features
 
 - 🎬 Works with **YouTube Shorts** and **public Instagram Reels**
-- 🤖 Uses **Google Gemini AI** to extract structured workouts (reps, sets, target muscles, form cues, duration, equipment)
-- 📸 **OpenCV Keyframe Extraction** — selects the sharpest demonstration frames using Laplacian variance scoring
+- 🤖 **Multimodal Gemini AI Video Scanning** — uploads and evaluates full video streams to identify all distinct exercises and precise start/end timestamps
+- ✂️ **Automatic Video Snippet Trimming (FFmpeg)** — cuts compact, mobile-optimized looping H.264 MP4 clips for each exercise
+- 📸 **OpenCV Keyframe Extraction** — selects the sharpest demonstration frames using Laplacian variance scoring for video poster frames and fallback guides
 - 📱 **Mobile-First Workout App Design** (optimized for iPhone 14 & Safari)
+  - Looping exercise video demonstration guides directly inside the checklist
   - Interactive exercise checklist with progress bar (persisted via `localStorage`)
   - Sticky bottom rest timer (presets: 30s, 45s, 60s, stopwatch + completion vibration)
-  - Dark & Light mode support with warm athletic palette
+  - Dark & Light mode athletic styling with Barlow Condensed typography
   - Safe-area inset support for modern mobile screens
 - 🌐 **Free Forever GitHub Pages Hosting**
   - Standalone Static Hub in `docs/` (`docs/index.html` with real-time search & filters)
@@ -113,7 +115,7 @@ Every new workout you extract or edit will auto-compile to `docs/` and automatic
 
 ```
 workout/
-├── workout_agent.py        # CLI extraction engine (URL -> AI -> frames -> HTML)
+├── workout_agent.py        # CLI extraction engine (URL -> Multimodal AI -> FFmpeg snippets + OpenCV frames -> HTML)
 ├── server.py               # Local Flask server & REST API (port 8081)
 ├── export_static.py        # Compiles docs/ static hub and auto-syncs to GitHub
 ├── batch_agent.py          # Batch processor for multiple URLs/files

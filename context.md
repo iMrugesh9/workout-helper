@@ -1,7 +1,7 @@
 # Project Context: Workout Helper & Video-to-App Pipeline
 
 ## 1. Executive Summary
-Workout Helper is a full-stack, AI-powered fitness routine extractor inspired by the `recipe-builder` architecture in `personal-ai`. It processes workout videos from **YouTube Shorts** and **Instagram Reels**, uses Google Gemini AI to extract structured exercise sets, reps, muscle targets, and technique cues, extracts sharpest keyframes via OpenCV Laplacian variance scoring, and compiles a standalone mobile-first workout site hosted for **100% free on GitHub Pages**.
+Workout Helper is a full-stack, AI-powered fitness routine extractor inspired by the `recipe-builder` architecture in `personal-ai`. It processes workout videos from **YouTube Shorts** and **Instagram Reels**, uses Google Gemini AI (multimodal video understanding) to extract structured exercise sets, reps, muscle targets, and technique cues, generates short looping video snippets for every distinct exercise via FFmpeg, extracts sharpest keyframes via OpenCV Laplacian variance scoring for video poster frames, and compiles a standalone mobile-first workout site hosted for **100% free on GitHub Pages**.
 
 - **Repository**: [https://github.com/iMrugesh9/workout-helper](https://github.com/iMrugesh9/workout-helper)
 - **Live GitHub Pages Hub**: [https://imrugesh9.github.io/workout-helper/](https://imrugesh9.github.io/workout-helper/)
@@ -17,8 +17,9 @@ Workout Helper is a full-stack, AI-powered fitness routine extractor inspired by
 │  • Flask Web Server (http://localhost:8081 & http://<LAN_IP>:8081)     │
 │  • Desktop Launcher & Zenity Control Menu (~/Desktop/workout-server)  │
 │  • yt-dlp Video & Subtitle Extractor (Direct signed URL parsing)       │
+│  • Multimodal Gemini Video Scanner (gemini-3.5-flash / 3.7 / 3.8)      │
+│  • FFmpeg Exercise Snipper (Looping H.264 MP4 clips per exercise)     │
 │  • OpenCV Keyframe Extraction (Laplacian variance sharpness filtering) │
-│  • Google Gemini AI Client (gemini-flash-lite-latest / 3.5-flash)      │
 │  • Local Storage (data/workouts.json)                                  │
 │  • Standalone HTML Generator (template/workout.html.jinja)             │
 └──────────────────────────────────┬─────────────────────────────────────┘
@@ -31,6 +32,7 @@ Workout Helper is a full-stack, AI-powered fitness routine extractor inspired by
 │  • Fully Mobile-Responsive (iPhone 14 viewport & safe-area insets)     │
 │  • Real-time search & Category filters (Full Body, Upper, Lower, HIIT) │
 │  • Standalone workout pages (docs/workouts/<id>.html) with:            │
+│    - Looping embedded video snippets for each exercise                 │
 │    - Dynamic exercise checklist with progress bar (localStorage)       │
 │    - Built-in sticky rest timer (30s, 45s, 60s, stopwatch + vibration)│
 │    - Visual exercise guides (sharpest keyframes) & form cues           │
@@ -98,3 +100,14 @@ workout/
      - `workout-helper`: `https://imrugesh9.github.io/workout-helper/`
    - Verified that `.env` is completely excluded from git and repository is public.
    - First live tested extraction: `https://www.instagram.com/p/DbGuEMmoLko/` was automatically analyzed, keyframed, compiled, committed, and pushed to GitHub Pages.
+8. **Multimodal Visual Scanning over Caption Heuristics**:
+   - **Problem**: If a video description was $\ge 30$ characters, earlier code treated it as a transcript and bypassed sending the video file to Gemini. Instagram Reels often have long boilerplate captions (call-to-actions, hashtags) without mentioning any exercise names, causing Gemini to hallucinate a single generic exercise.
+   - **Solution**: Video visuals are always uploaded and passed to Gemini whenever `video_path` exists. The video is uploaded via the Gemini Files API, polled until `ACTIVE`, and evaluated multimodally so every distinct exercise and its exact timestamps (`start_sec`, `end_sec`) are extracted.
+9. **Automated Short Video Snippet Trimming via FFmpeg**:
+   - Integrated `imageio-ffmpeg` static binary for consistent, system-independent video processing.
+   - Slices each exercise into a lightweight 4–10 second looping MP4 clip (`scale=min(360,iw):-2`, H.264, AAC 48k mono audio with auto-fallback to `-an`).
+   - Pairs each video snippet with an OpenCV Laplacian variance sharpness keyframe serving as the video `poster` frame.
+   - Rendered with `controls playsinline loop preload="metadata"` in `template/workout.html.jinja`.
+10. **Hub Feed Performance vs Self-Contained Standalone Pages**:
+   - In `export_static.py`, heavy base64 video streams and raw images are omitted from `docs/workouts.json` and inlined `const WORKOUTS` in `docs/index.html`.
+   - The Workout Hub index loads instantaneously (< 20 KB), while each standalone workout page (`docs/workouts/<id>.html`) remains 100% portable and self-contained with embedded video snippets.
