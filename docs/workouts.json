@@ -1,5 +1,122 @@
 [
   {
+    "id": "home-dumbbell-back-day-16e6be",
+    "title": "Home Dumbbell Back Day",
+    "category": "Upper Body",
+    "difficulty": "Intermediate",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "1 Circuit (5 Exercises)",
+    "description": "Master complete back development at home by adjusting your grip angle and elbow positioning across 5 targeted dumbbell row and fly variations.",
+    "equipment": [
+      "Dumbbells"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Underhand Dumbbell Row (Lat Focus)",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Latissimus Dorsi",
+          "Biceps",
+          "Lower Back"
+        ],
+        "cues": [
+          "Hold dumbbells with a supinated (underhand) grip",
+          "Pull dumbbells back toward your hips while driving elbows straight back"
+        ],
+        "why": "Maximizes lower lat engagement by keeping elbows tight and pulling back towards the waist.",
+        "start_sec": 0.0,
+        "end_sec": 5.0,
+        "timestamp_percent": 10,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Neutral Grip Bent Over Row (Mid-Back Focus)",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Rhomboids",
+          "Middle Trapezius",
+          "Latissimus Dorsi"
+        ],
+        "cues": [
+          "Hold dumbbells with palms facing each other (neutral grip)",
+          "Row towards lower ribcage while squeezing shoulder blades together"
+        ],
+        "why": "Builds mid-back thickness by pulling toward the mid-torso with a neutral grip.",
+        "start_sec": 5.0,
+        "end_sec": 9.5,
+        "timestamp_percent": 30,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Pronated Bent Over Row (Teres Major Focus)",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Teres Major",
+          "Upper Lats",
+          "Rhomboids"
+        ],
+        "cues": [
+          "Use an overhand (pronated) grip",
+          "Row dumbbells towards upper abdomen with elbows slightly flared"
+        ],
+        "why": "Shifts emphasis to the upper lats and teres major to help widen your back.",
+        "start_sec": 9.5,
+        "end_sec": 14.0,
+        "timestamp_percent": 50,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Wide Elbow Row (Rear Delt & Upper Traps)",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Rear Deltoids",
+          "Upper Trapezius",
+          "Infraspinatus"
+        ],
+        "cues": [
+          "Flare elbows outwards at roughly 70-90 degrees",
+          "Pull dumbbells towards upper chest level while keeping core engaged"
+        ],
+        "why": "Isolates upper back depth and rear shoulders by widening elbow path.",
+        "start_sec": 14.0,
+        "end_sec": 18.5,
+        "timestamp_percent": 70,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Bent Over Reverse Fly (Trapezius Focus)",
+        "dose": "3 × 12–15 reps",
+        "target_muscles": [
+          "Trapezius",
+          "Rear Deltoids",
+          "Rhomboids"
+        ],
+        "cues": [
+          "Maintain a slight bend in elbows",
+          "Raise weights outward in an arc until parallel with shoulders"
+        ],
+        "why": "Strengthens scapular retractors and upper trapezius muscles.",
+        "start_sec": 18.5,
+        "end_sec": 24.5,
+        "timestamp_percent": 90,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Hinge at your hips with a flat spine to protect your lower back throughout every rep.",
+      "Control the eccentric (lowering) phase of each repetition to maximize muscle tension."
+    ],
+    "source_url": "https://www.instagram.com/reels/De_xkbwTDaD/",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/861576726_18037357559851743_6420585171275908434_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ig_cache_key=NDAxNzE0NzQwMDYxOTMwODY3NTE4MDM3MzU3NTU2ODUxNzQz.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=e1uUxPt-QDEQ7kNvwGIrfBV&_nc_oc=AdrnuF0GMfc8oZbXQVMRGtUYgY4XOcXJfw187lAxd05DC0j_gyxLxqmy5Z0Ygs-KT0cHobzgJVhztT8gdqMsWF2r&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=Yn88bhdkTEYnIBeFfaJ71w&_nc_ss=7b689&oh=00_AQQEnAsMz4163lyP5hvGN_oAZPhb-kuLDFjcBbk5xyFKtA&oe=6AE8FF03",
+    "generated_at": "2026-10-29T17:04:03.009113"
+  },
+  {
     "id": "upper-body-posture-arm-toning--33cf20",
     "title": "Upper Body Posture & Arm Toning Dumbbell Workout",
     "category": "Upper Body",
