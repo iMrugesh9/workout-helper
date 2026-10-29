@@ -1,5 +1,120 @@
 [
   {
+    "id": "beginner-chest-workout-at-home-35a15a",
+    "title": "Beginner Chest Workout at Home",
+    "category": "Upper Body",
+    "difficulty": "Beginner",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "1 Circuit",
+    "description": "A beginner-friendly dumbbell chest routine designed to target all areas of the pectoral muscles from home. Focus on controlled movements, proper form, and muscle contraction.",
+    "equipment": [
+      "Dumbbells",
+      "Yoga Mat"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Kneeling Alternating Dumbbell Front Raises",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Upper Chest",
+          "Anterior Deltoids"
+        ],
+        "cues": [
+          "Keep core engaged while kneeling tall",
+          "Raise dumbbells sequentially across the upper chest with control"
+        ],
+        "why": "Targets the clavicular head (upper portion) of the chest along with the front shoulders.",
+        "start_sec": 0.0,
+        "end_sec": 2.5,
+        "timestamp_percent": 8,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Kneeling Dumbbell Overhead Raises",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Lower Chest",
+          "Upper Chest",
+          "Shoulders"
+        ],
+        "cues": [
+          "Lift both dumbbells simultaneously overhead smoothly",
+          "Maintain a neutral spine and avoid arching the lower back"
+        ],
+        "why": "Engages chest fibers through an extended range of motion.",
+        "start_sec": 2.5,
+        "end_sec": 5.0,
+        "timestamp_percent": 25,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Dumbbell Floor Press",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Pectoralis Major",
+          "Triceps"
+        ],
+        "cues": [
+          "Lie flat on the floor with knees bent and feet flat",
+          "Press dumbbells upward until arms are fully extended without locking elbows"
+        ],
+        "why": "Builds mid-chest strength and upper body pressing power safely on the floor.",
+        "start_sec": 5.0,
+        "end_sec": 8.0,
+        "timestamp_percent": 45,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Dumbbell Floor Flyes",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Inner Chest",
+          "Outer Chest"
+        ],
+        "cues": [
+          "Maintain a slight bend in your elbows throughout the movement",
+          "Lower dumbbells wide until upper arms lightly touch the floor, then squeeze chest at top"
+        ],
+        "why": "Isolates the pectoral muscles and improves chest expansion and contraction.",
+        "start_sec": 8.0,
+        "end_sec": 11.0,
+        "timestamp_percent": 65,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Floor Dumbbell Pullover",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Upper Chest",
+          "Lats",
+          "Serratus Anterior"
+        ],
+        "cues": [
+          "Hold a single dumbbell with both hands extended over chest",
+          "Lower dumbbell overhead toward the floor keeping core tight and control the descent"
+        ],
+        "why": "Expands the rib cage and isolates the upper chest and serratus muscles.",
+        "start_sec": 11.0,
+        "end_sec": 15.0,
+        "timestamp_percent": 88,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Focus on peak contraction at the top of every repetition rather than rushing.",
+      "Choose a light to moderate dumbbell weight to maintain strict form and reduce shoulder strain."
+    ],
+    "source_url": "https://www.instagram.com/reel/DeTXGdMADHY/?utm_source=ig_web_copy_link&exln=NTc4MTIwNjQ2YQ==",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/843434710_18089748614682375_5878932265330195713_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=105&_nc_map=urlgen_bucketless&ig_cache_key=NDAwNDY0NjA5MjM4ODk3MDk2ODE4MDg5NzQ4NjExNjgyMzc1.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=XriQIbNKwiAQ7kNvwEZN0Ec&_nc_oc=AdqU7c7dLqd0_VrfiKUOYyI3aEcrysaOUUnx0WelF9kCi6XO0JA5fqaKxfwDqP4ZpFW9kTq2gbwgirCdTT3c9i3P&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=5CKGBXAcLSLkdZUGm1ORjA&_nc_ss=7b689&oh=00_AQRwZaiwUOxtpUIJSSldTmTIG5Fe71nqeJ7e2yYXvuBPJg&oe=6AE91E77",
+    "generated_at": "2026-10-29T17:25:45.139533"
+  },
+  {
     "id": "home-dumbbell-back-day-16e6be",
     "title": "Home Dumbbell Back Day",
     "category": "Upper Body",
