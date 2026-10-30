@@ -1,5 +1,125 @@
 [
   {
+    "id": "goodbye-belly-full-body-dumbbe-384c77",
+    "title": "Goodbye Belly Full Body Dumbbell Home Workout",
+    "category": "Full Body",
+    "difficulty": "Beginner",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "1 Circuit",
+    "description": "A beginner-friendly full body dumbbell routine designed to tone your legs, shoulders, back, arms, and core. This targeted circuit helps increase caloric burn and build functional strength right from home.",
+    "equipment": [
+      "Dumbbells",
+      "Yoga Mat"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Squat with Dumbbell Front Raise",
+        "dose": "3 × 15–20 reps",
+        "target_muscles": [
+          "Quadriceps",
+          "Glutes",
+          "Anterior Deltoids",
+          "Core"
+        ],
+        "cues": [
+          "Keep your chest upright and core engaged as you lower into a squat.",
+          "Raise the dumbbells in front of you to shoulder height in a controlled motion."
+        ],
+        "why": "Engages large muscle groups in the lower and upper body simultaneously to maximize burn and tone thighs.",
+        "start_sec": 1.5,
+        "end_sec": 6.0,
+        "timestamp_percent": 12,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Standing Alternating Dumbbell Toe Touch",
+        "dose": "3 × 12–15 reps per side",
+        "target_muscles": [
+          "Hamstrings",
+          "Lower Back",
+          "Obliques",
+          "Glutes"
+        ],
+        "cues": [
+          "Hinge at the hips with a flat back as you reach the dumbbell across to the opposite foot.",
+          "Squeeze your glutes and core to drive back up to standing position."
+        ],
+        "why": "Strengthens the posterior chain and tone your lower back and legs through dynamic rotation.",
+        "start_sec": 6.5,
+        "end_sec": 10.5,
+        "timestamp_percent": 30,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Kneeling Dumbbell Overhead Shoulder Press",
+        "dose": "3 × 12–15 reps",
+        "target_muscles": [
+          "Deltoids",
+          "Triceps",
+          "Upper Chest",
+          "Core"
+        ],
+        "cues": [
+          "Maintain a tall kneeling position with glutes squeezed to eliminate lower back arching.",
+          "Press the dumbbells directly overhead, locking out smoothly at the top."
+        ],
+        "why": "Builds shoulder strength and stability while challenging core posture from a kneeling base.",
+        "start_sec": 11.0,
+        "end_sec": 16.0,
+        "timestamp_percent": 48,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Kneeling Dumbbell Overhead Triceps Extension",
+        "dose": "3 × 12–15 reps",
+        "target_muscles": [
+          "Triceps",
+          "Core"
+        ],
+        "cues": [
+          "Keep elbows pointing forward and close to your head throughout the lift.",
+          "Lower the weight behind your head with control and press back up to full extension."
+        ],
+        "why": "Isolates and tightens the triceps to eliminate arm flab and sculpt arms.",
+        "start_sec": 16.5,
+        "end_sec": 21.5,
+        "timestamp_percent": 68,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Lying Single-Arm Dumbbell Opposite Toe Touch",
+        "dose": "3 × 12–15 reps per side",
+        "target_muscles": [
+          "Rectus Abdominis",
+          "Obliques",
+          "Hip Flexors"
+        ],
+        "cues": [
+          "Press your lower back firmly into the mat as you raise your opposite leg and reach the dumbbell up.",
+          "Control the lowering phase to maintain constant core tension."
+        ],
+        "why": "Targets the entire abdominal wall to trim the waistline and tighten the midsection.",
+        "start_sec": 22.0,
+        "end_sec": 28.0,
+        "timestamp_percent": 88,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Focus on slow and controlled movements rather than rushing reps.",
+      "Choose a dumbbell weight that allows you to maintain clean form throughout every set."
+    ],
+    "source_url": "https://www.instagram.com/reels/DeJ8wQ1haVE/",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.71878-15/838628425_2304326003719606_2768953193092843216_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ig_cache_key=NDAwMTk5Njk0MzI5ODc2NjE0ODEwMjI4MTA2MjA4MTk2NzE%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fdXNlcl9zZWxlY3RlZF90aHVtYm5haWwuQzMifQ%3D%3D&_nc_ohc=B5FVOXbWRrAQ7kNvwFJ2p6L&_nc_oc=AdrcRuHtgjPKh40G00ONFtKHcDl3EN8_FrGyx8o7_nRCFAjm6neOjhMdipJLAHnF9MFYeDNhtURClpy9h7AbPrzv&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=wBbI1C6RUMGbGd-yyuWpcw&_nc_ss=7b289&oh=00_AQR5hgMliw8-ZV5nHdtNtpyXTkMRbsj9iAX4nYr4goVv7w&oe=6AEA99C7",
+    "generated_at": "2026-10-30T21:52:35.849558"
+  },
+  {
     "id": "beginner-chest-workout-at-home-35a15a",
     "title": "Beginner Chest Workout at Home",
     "category": "Upper Body",
