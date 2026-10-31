@@ -1,12 +1,12 @@
 [
   {
-    "id": "ultimate-dumbbell-biceps-worko-62870e",
-    "title": "Ultimate Dumbbell Biceps Workout",
+    "id": "5-dumbbell-curl-variations-for-46746e",
+    "title": "5 Dumbbell Curl Variations for Biceps & Forearms",
     "category": "Upper Body",
     "difficulty": "Intermediate",
-    "estimated_duration": "10–15 min",
-    "blocks_count": "1 Circuit",
-    "description": "A focused upper body exercise designed to build total bicep size and strength. Utilizing seated dumbbell curls isolates the biceps brachii while minimizing momentum.",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "5 Exercises",
+    "description": "A targeted arm workout focusing on full biceps and forearm development through varying grip angles and arm positions. Perform 10-15 reps for 3-4 sets per exercise with 45-60 seconds of rest between sets.",
     "equipment": [
       "Dumbbells",
       "Bench"
@@ -14,33 +14,103 @@
     "exercises": [
       {
         "step_number": 1,
-        "title": "Seated Dumbbell Bicep Curl",
-        "dose": "3 × 10–12 reps",
+        "title": "Seated Standard-Grip Dumbbell Curl",
+        "dose": "3–4 sets × 10–15 reps",
         "target_muscles": [
-          "Biceps Brachii",
+          "Biceps Brachii (Overall)"
+        ],
+        "cues": [
+          "Keep palms facing forward (supinated) throughout the curl.",
+          "Keep elbows pinned close to your torso without swinging."
+        ],
+        "why": "Engages both the long and short heads balanced across the overall biceps.",
+        "start_sec": 0.0,
+        "end_sec": 14.6,
+        "timestamp_percent": 8,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Seated Neutral-Grip Dumbbell Curl",
+        "dose": "3–4 sets × 10–15 reps",
+        "target_muscles": [
+          "Biceps Long Head",
+          "Brachialis"
+        ],
+        "cues": [
+          "Hold dumbbells with palms facing each other (hammer grip).",
+          "Lock elbows at your side and squeeze at the peak of contraction."
+        ],
+        "why": "Targets the biceps long head and brachialis to build arm thickness and peak.",
+        "start_sec": 14.6,
+        "end_sec": 30.1,
+        "timestamp_percent": 28,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Seated Wide-Stance Dumbbell Curl",
+        "dose": "3–4 sets × 10–15 reps",
+        "target_muscles": [
+          "Biceps Short Head"
+        ],
+        "cues": [
+          "Flare arms outward at a slight angle away from the body.",
+          "Maintain supinated palms while curling upward along the wide line."
+        ],
+        "why": "Emphasizes the inner short head of the biceps for upper arm width.",
+        "start_sec": 30.1,
+        "end_sec": 45.4,
+        "timestamp_percent": 48,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Seated Reverse-Grip Dumbbell Curl",
+        "dose": "3–4 sets × 10–15 reps",
+        "target_muscles": [
+          "Brachioradialis",
           "Brachialis",
           "Forearms"
         ],
         "cues": [
-          "Sit upright on the bench with feet flat on the floor",
-          "Keep elbows tucked close to your torso",
-          "Rotate your palms upward (supinate) as you lift and squeeze at the top"
+          "Grip dumbbells with palms facing down (pronated grip).",
+          "Keep wrists firm and straight without bending backward."
         ],
-        "why": "Effectively isolates the biceps overall to increase peak height, arm thickness, and grip strength.",
-        "start_sec": 1.0,
-        "end_sec": 14.0,
-        "timestamp_percent": 50,
+        "why": "Develops forearm strength and strengthens the brachioradialis muscle.",
+        "start_sec": 45.4,
+        "end_sec": 61.8,
+        "timestamp_percent": 68,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Seated Two-Arm Close-Grip Dumbbell Curl",
+        "dose": "3–4 sets × 10–15 reps",
+        "target_muscles": [
+          "Biceps Long Head",
+          "Brachialis"
+        ],
+        "cues": [
+          "Press dumbbells close together or hold a single weight closely.",
+          "Keep hands centered in front of the chest while curling up smoothly."
+        ],
+        "why": "Provides concentrated tension on the outer biceps long head and brachialis.",
+        "start_sec": 61.8,
+        "end_sec": 77.75,
+        "timestamp_percent": 88,
         "has_video": true
       }
     ],
     "tips": [
-      "Control the lowering phase (eccentric motion) for 2 to 3 seconds to maximize muscle growth.",
-      "Avoid using shoulder or torso swing to keep complete tension on the biceps."
+      "Control the lowering (eccentric) phase of each rep for maximum hypertrophy.",
+      "Avoid swinging your shoulders or using momentum to lift the weights.",
+      "Rest 45–60 seconds between sets to maintain high intensity and pump."
     ],
     "source_url": "https://www.instagram.com/p/DerJ5P1GFjj/?img_index=1",
     "platform": "Instagram",
-    "thumbnail_url": "",
-    "generated_at": "2026-10-31T16:16:54.592222"
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t51.82787-15/850521213_18631977241063096_66435335662244606_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ig_cache_key=NDAxMTEzMjQ0OTQwOTQ3NDYzMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuNzIwLnNkci52aWRlb191c2VyX3NlbGVjdGVkX3RodW1ibmFpbC5DMyJ9&_nc_ohc=eJlZrQgcTWkQ7kNvwHzou2g&_nc_oc=AdppJ4NRzAXl9u2tvlmFPl9huSaJ-u_xLyoGYT6q-A0dHENEjAOHUoNr1k7bCuBqAvp9-RzCVChqrKDyNr1Ug6Bz&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=03p0qHh6Io3sDuSDSsr4vA&_nc_ss=7b689&oh=00_AQRV0hADleLrbzCM245CR5MY348Puy5NG-_lylkAT7htnQ&oe=6AEB9CAB",
+    "generated_at": "2026-10-31T16:37:30.071731"
   },
   {
     "id": "goodbye-belly-full-body-dumbbe-384c77",
