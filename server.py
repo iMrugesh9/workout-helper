@@ -185,9 +185,20 @@ def extract_workout():
             }
 
             workouts = load_workouts()
+            old_matching = [w for w in workouts if w.get("source_url") == url or w.get("id") == workout_id]
             workouts = [w for w in workouts if w.get("id") != workout_id and w.get("source_url") != url]
             workouts.insert(0, workout_entry)
             save_workouts(workouts)
+
+            for old_w in old_matching:
+                old_id = old_w.get("id")
+                if old_id and old_id != workout_id:
+                    old_html = DOCS_DIR / "workouts" / f"{old_id}.html"
+                    if old_html.exists():
+                        try:
+                            old_html.unlink()
+                        except Exception:
+                            pass
 
             # Sync and generate static pages
             generate_static_site()

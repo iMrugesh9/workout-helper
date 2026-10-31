@@ -190,21 +190,209 @@ def get_ffmpeg_bin() -> str:
     return system_bin if system_bin else "ffmpeg"
 
 
+def is_multi_video_instagram(url: str, entries: list) -> bool:
+    """Detect if URL is an Instagram post/reel with an index parameter or multi-item carousel."""
+    if detect_platform(url) != "Instagram":
+        return False
+    # Check if URL explicitly contains an index parameter, e.g. ?img_index=1, &index=2, reel_index=...
+    if re.search(r'[?&](?:[a-zA-Z0-9_]*index)=\d+', url, re.IGNORECASE):
+        return True
+    # Or if yt-dlp identified multiple entries in the post/playlist
+    if len(entries) > 1:
+        return True
+    return False
+
+
+def concatenate_video_clips(clip_paths: list[str], output_path: str, ffmpeg_bin: str) -> bool:
+    """Concatenate multiple video clips into a single continuous video."""
+    if not clip_paths:
+        return False
+    if len(clip_paths) == 1:
+        shutil.copy(clip_paths[0], output_path)
+        return True
+
+    # 1. Fast path: concat demuxer with stream copy
+    concat_txt = Path(output_path).parent / "concat_list.txt"
+    with open(concat_txt, "w", encoding="utf-8") as f:
+        for p in clip_paths:
+            escaped = p.replace("'", "'\\''")
+            f.write(f"file '{escaped}'\n")
+
+    cmd_copy = [
+        ffmpeg_bin, "-y",
+        "-f", "concat",
+        "-safe", "0",
+        "-i", str(concat_txt),
+        "-c", "copy",
+        "-movflags", "+faststart",
+        output_path
+    ]
+    res_copy = subprocess.run(cmd_copy, capture_output=True, text=True, timeout=120)
+
+    # Verify if copy succeeded and produced playable output
+    if res_copy.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 1000:
+        cap = cv2.VideoCapture(output_path)
+        total_f = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+        cap.release()
+        if (total_f / fps if fps > 0 else 0) > 2.0:
+            return True
+
+    # 2. Robust fallback: re-encoding concatenation with normalized dimensions and audio
+    print("   ⚠️ Concat stream copy failed or had incompatible streams; re-encoding clips...")
+    inputs = []
+    filter_parts = []
+    for i, p in enumerate(clip_paths):
+        inputs.extend(["-i", p])
+        filter_parts.append(
+            f"[{i}:v]scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30[v{i}];"
+        )
+    concat_str = "".join([f"[v{i}]" for i in range(len(clip_paths))]) + f"concat=n={len(clip_paths)}:v=1:a=0[v]"
+    filter_complex = "".join(filter_parts) + concat_str
+
+    cmd_reencode = [
+        ffmpeg_bin, "-y",
+        *inputs,
+        "-filter_complex", filter_complex,
+        "-map", "[v]",
+        "-c:v", "libx264",
+        "-preset", "fast",
+        "-crf", "26",
+        "-movflags", "+faststart",
+        output_path
+    ]
+    res_reencode = subprocess.run(cmd_reencode, capture_output=True, text=True, timeout=240)
+    return res_reencode.returncode == 0 and os.path.exists(output_path)
+
+
+def download_multi_index_videos(url: str, tmpdir: str, yt_dlp_bin: str, max_indexes: int = 15) -> list[str]:
+    """
+    Downloads up to max_indexes (15) videos from a multi-video / multi-index Instagram post.
+    Loops through available indexes and deduplicates to return an ordered list of video file paths.
+    """
+    print(f"🔄 Multi-video Instagram post detected. Fetching up to {max_indexes} video indexes...")
+    downloaded_clips = []
+    has_index_param = bool(re.search(r'[?&](?:[a-zA-Z0-9_]*index)=\d+', url, re.IGNORECASE))
+
+    # Phase 1: Try downloading items 1..max_indexes using yt-dlp playlist option
+    cmd_multi = [
+        yt_dlp_bin,
+        "--no-warnings",
+        "--playlist-items", f"1-{max_indexes}",
+        "-f", "best[ext=mp4]/bestvideo[ext=mp4]+bestaudio/best",
+        "-o", f"{tmpdir}/clip_%(playlist_index)02d.%(ext)s",
+        url
+    ]
+    try:
+        subprocess.run(cmd_multi, capture_output=True, text=True, timeout=60)
+        found_clips = sorted([
+            str(p) for p in Path(tmpdir).glob("clip_*.mp4")
+            if p.stat().st_size > 1000
+        ])
+        if len(found_clips) > 0:
+            downloaded_clips = found_clips[:max_indexes]
+            print(f"   ✅ Fetched {len(downloaded_clips)} video index clips via playlist extraction")
+    except Exception as e:
+        print(f"   ⚠️ Playlist extraction warning: {e}")
+
+    # Phase 2: If playlist extraction got 1 or 0 clips and the URL has index={num},
+    # loop sequentially through indexes (1..max_indexes) replacing index={idx} in URL
+    if len(downloaded_clips) <= 1 and has_index_param:
+        print(f"   🔄 Looping sequentially through URL indexes (1 to {max_indexes})...")
+        seq_clips = []
+        seen_hashes = set()
+        for idx in range(1, max_indexes + 1):
+            idx_url = re.sub(r'([?&][a-zA-Z0-9_]*index=)\d+', rf'\g<1>{idx}', url)
+            clip_tmpl = f"{tmpdir}/seq_clip_{idx:02d}.%(ext)s"
+
+            # Try with playlist-items {idx}
+            cmd_seq = [
+                yt_dlp_bin,
+                "--no-warnings",
+                "--playlist-items", str(idx),
+                "-f", "best[ext=mp4]/bestvideo[ext=mp4]+bestaudio/best",
+                "-o", clip_tmpl,
+                idx_url
+            ]
+            subprocess.run(cmd_seq, capture_output=True, text=True, timeout=30)
+            found = sorted([
+                str(p) for p in Path(tmpdir).glob(f"seq_clip_{idx:02d}.*")
+                if p.stat().st_size > 1000
+            ])
+
+            if not found:
+                # Direct download without --playlist-items
+                cmd_seq_direct = [
+                    yt_dlp_bin,
+                    "--no-warnings",
+                    "--no-playlist",
+                    "-f", "best[ext=mp4]/bestvideo[ext=mp4]+bestaudio/best",
+                    "-o", clip_tmpl,
+                    idx_url
+                ]
+                subprocess.run(cmd_seq_direct, capture_output=True, text=True, timeout=30)
+                found = sorted([
+                    str(p) for p in Path(tmpdir).glob(f"seq_clip_{idx:02d}.*")
+                    if p.stat().st_size > 1000
+                ])
+
+            if not found:
+                print(f"   ℹ️ Index {idx} returned no video. Stopping loop at {idx - 1} clips.")
+                break
+
+            import hashlib
+            with open(found[0], "rb") as cf:
+                f_hash = hashlib.md5(cf.read(65536)).hexdigest()
+            if f_hash in seen_hashes:
+                print(f"   ℹ️ Index {idx} is a duplicate of a previously fetched clip. Stopping loop.")
+                try:
+                    os.remove(found[0])
+                except Exception:
+                    pass
+                break
+
+            seen_hashes.add(f_hash)
+            seq_clips.append(found[0])
+            print(f"   ✅ Fetched video for index {idx} ({os.path.basename(found[0])})")
+
+        if len(seq_clips) > len(downloaded_clips):
+            downloaded_clips = seq_clips[:max_indexes]
+
+    return downloaded_clips
+
+
 def fetch_video_info(url: str, tmpdir: str) -> dict:
     yt_dlp_bin = get_yt_dlp_bin()
+    ffmpeg_bin = get_ffmpeg_bin()
+    platform = detect_platform(url)
 
-    print("📥 Fetching video metadata with yt-dlp...")
+    print(f"📥 Fetching video metadata with yt-dlp ({platform})...")
     cmd_meta = [yt_dlp_bin, "--dump-json", "--no-warnings", url]
-    res_meta = subprocess.run(cmd_meta, capture_output=True, text=True, timeout=30)
-    info = {}
+    res_meta = subprocess.run(cmd_meta, capture_output=True, text=True, timeout=40)
+    entries = []
     if res_meta.returncode == 0 and res_meta.stdout.strip():
-        try:
-            info = json.loads(res_meta.stdout)
-        except Exception:
-            pass
+        for line in res_meta.stdout.strip().split("\n"):
+            line = line.strip()
+            if line:
+                try:
+                    entries.append(json.loads(line))
+                except Exception:
+                    pass
+
+    info = entries[0] if entries else {}
 
     title = info.get("title", "Workout Routine")
     description = info.get("description", "")
+
+    # Combine descriptions if multiple entries have distinct notes
+    if len(entries) > 1:
+        all_descs = []
+        for e in entries:
+            d = (e.get("description") or "").strip()
+            if d and d not in all_descs:
+                all_descs.append(d)
+        if all_descs:
+            description = "\n\n".join(all_descs)
 
     thumbnail_url = ""
     thumbs = info.get("thumbnails", [])
@@ -221,23 +409,58 @@ def fetch_video_info(url: str, tmpdir: str) -> dict:
     elif description and len(description) > len(transcript):
         transcript = transcript + "\n\n" + description
 
-    # Download MP4 video stream
-    print("🎬 Downloading video stream for frame extraction...")
-    cmd_vid = [
-        yt_dlp_bin,
-        "--no-playlist",
-        "--no-warnings",
-        "-f", "best[ext=mp4]/bestvideo[height<=1280][ext=mp4]/bestvideo[width<=1280][ext=mp4]/best[height<=720]/best",
-        "-o", f"{tmpdir}/video.%(ext)s",
-        url,
-    ]
-    subprocess.run(cmd_vid, capture_output=True, text=True, timeout=50)
+    clip_segments = []
+    video_path = None
+    multi_index = is_multi_video_instagram(url, entries)
 
-    video_files = [
-        str(p) for p in Path(tmpdir).glob("video.*")
-        if p.suffix.lower() in [".mp4", ".mkv", ".webm", ".mov"]
-    ]
-    video_path = video_files[0] if video_files else None
+    if multi_index:
+        downloaded_clips = download_multi_index_videos(url, tmpdir, yt_dlp_bin, max_indexes=15)
+        if len(downloaded_clips) > 1:
+            print(f"🎬 Merging {len(downloaded_clips)} video clips into unified video...")
+            current_offset = 0.0
+            for i, cp in enumerate(downloaded_clips):
+                cap = cv2.VideoCapture(cp)
+                fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+                frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                dur = frames / fps if fps > 0 else 0.0
+                cap.release()
+                clip_segments.append({
+                    "index": i + 1,
+                    "path": cp,
+                    "duration": round(dur, 2),
+                    "start_sec": round(current_offset, 2),
+                    "end_sec": round(current_offset + dur, 2),
+                })
+                current_offset += dur
+
+            merged_path = os.path.join(tmpdir, "merged_video.mp4")
+            success = concatenate_video_clips(downloaded_clips, merged_path, ffmpeg_bin)
+            if success and os.path.exists(merged_path):
+                video_path = merged_path
+                print(f"   ✅ Unified video created: {os.path.basename(merged_path)} (total duration: {current_offset:.1f}s)")
+            else:
+                video_path = downloaded_clips[0]
+        elif len(downloaded_clips) == 1:
+            video_path = downloaded_clips[0]
+
+    if not video_path:
+        # Standard single video download
+        print("🎬 Downloading video stream for frame extraction...")
+        cmd_vid = [
+            yt_dlp_bin,
+            "--no-playlist",
+            "--no-warnings",
+            "-f", "best[ext=mp4]/bestvideo[height<=1280][ext=mp4]/bestvideo[width<=1280][ext=mp4]/best[height<=720]/best",
+            "-o", f"{tmpdir}/video.%(ext)s",
+            url,
+        ]
+        subprocess.run(cmd_vid, capture_output=True, text=True, timeout=50)
+
+        video_files = [
+            str(p) for p in Path(tmpdir).glob("video.*")
+            if p.suffix.lower() in [".mp4", ".mkv", ".webm", ".mov"]
+        ]
+        video_path = video_files[0] if video_files else None
 
     return {
         "title": title,
@@ -245,8 +468,9 @@ def fetch_video_info(url: str, tmpdir: str) -> dict:
         "transcript": transcript,
         "thumbnail_url": thumbnail_url,
         "video_path": video_path,
+        "clip_segments": clip_segments,
         "source_url": url,
-        "platform": detect_platform(url),
+        "platform": platform,
     }
 
 
@@ -254,12 +478,32 @@ def extract_workout_with_gemini(video_info: dict) -> dict:
     import time
     transcript = (video_info.get("transcript") or "").strip()
     video_path = video_info.get("video_path")
+    clip_segments = video_info.get("clip_segments") or []
     file_ref = None
+
+    if clip_segments and len(clip_segments) > 1:
+        total_dur = clip_segments[-1]["end_sec"]
+        seg_lines = [
+            f"  - Clip {s['index']}: {s['start_sec']:.1f}s – {s['end_sec']:.1f}s (duration: {s['duration']:.1f}s)"
+            for s in clip_segments
+        ]
+        multi_guide = (
+            f"MULTI-CLIP COMPILATION STRUCTURE:\n"
+            f"This video is a compilation of {len(clip_segments)} distinct video clips from a multi-video post (total timeline: 0.0s to {total_dur:.1f}s):\n"
+            + "\n".join(seg_lines) + "\n\n"
+            "IMPORTANT MULTI-CLIP INSTRUCTIONS:\n"
+            "- Each clip in this compilation typically demonstrates a distinct exercise (making bifurcation easy). "
+            "However, do NOT assume every clip is always strictly one exercise—a clip might demonstrate exercise variations, or an exercise may span across clips.\n"
+            "- Analyze the video as a unified whole.\n"
+            "- Extract ALL distinct exercises demonstrated.\n"
+            f"- For EVERY exercise, you MUST provide its exact start_sec and end_sec timestamps within the overall video timeline (between 0.0s and {total_dur:.1f}s).\n"
+        )
+        transcript = multi_guide + "\n\nPost Description & Notes:\n" + transcript
 
     prompt = (
         WORKOUT_PROMPT
         .replace("__TITLE__", str(video_info.get("title", "Workout")))
-        .replace("__TRANSCRIPT__", transcript[:10000] if transcript else "Observe all exercises demonstrated in the video.")
+        .replace("__TRANSCRIPT__", transcript[:12000] if transcript else "Observe all exercises demonstrated in the video.")
     )
 
     # For workout reels and shorts, visual demonstration is essential
@@ -315,7 +559,44 @@ def extract_workout_with_gemini(video_info: dict) -> dict:
     if json_match:
         cleaned = json_match.group(0)
 
-    return json.loads(cleaned)
+    workout_result = json.loads(cleaned)
+    exercises = workout_result.get("exercises", [])
+
+    # Post-process exercises if multi-clip compilation was analyzed
+    if clip_segments and len(clip_segments) > 1 and exercises:
+        total_dur = clip_segments[-1]["end_sec"]
+
+        # Check if timestamps need local -> global offset conversion
+        # (e.g. if every exercise starts near 0s because model reported local per-clip times)
+        needs_offset = False
+        if len(exercises) == len(clip_segments) and len(exercises) > 1:
+            all_near_zero = all(
+                (ex.get("start_sec") or 0.0) < clip_segments[1]["start_sec"]
+                for ex in exercises
+            )
+            if all_near_zero:
+                needs_offset = True
+
+        for i, ex in enumerate(exercises):
+            s = ex.get("start_sec")
+            e = ex.get("end_sec")
+
+            if needs_offset and i < len(clip_segments):
+                seg = clip_segments[i]
+                s = (s or 0.0) + seg["start_sec"]
+                e = (e or seg["duration"]) + seg["start_sec"]
+                ex["start_sec"] = round(s, 2)
+                ex["end_sec"] = round(e, 2)
+
+            # Validate timestamps are within video bounds
+            if s is None or e is None or s < 0 or e <= s:
+                if i < len(clip_segments):
+                    ex["start_sec"] = clip_segments[i]["start_sec"]
+                    ex["end_sec"] = clip_segments[i]["end_sec"]
+            elif e > total_dur:
+                ex["end_sec"] = round(total_dur, 2)
+
+    return workout_result
 
 
 def extract_visual_frames(video_path: str, workout_data: dict) -> dict:
@@ -506,8 +787,20 @@ def save_and_export(workout_data: dict, video_info: dict) -> Path:
     }
 
     # Deduplicate or prepend
+    old_matching = [w for w in existing if w.get("source_url") == workout_entry["source_url"] or w.get("id") == workout_id]
     existing = [w for w in existing if w.get("id") != workout_id and w.get("source_url") != workout_entry["source_url"]]
     existing.insert(0, workout_entry)
+
+    # Clean up old HTML file if id changed
+    for old_w in old_matching:
+        old_id = old_w.get("id")
+        if old_id and old_id != workout_id:
+            old_html = DOCS_DIR / "workouts" / f"{old_id}.html"
+            if old_html.exists():
+                try:
+                    old_html.unlink()
+                except Exception:
+                    pass
 
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(existing, f, ensure_ascii=False, indent=2)

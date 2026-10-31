@@ -111,3 +111,11 @@ workout/
 10. **Hub Feed Performance vs Self-Contained Standalone Pages**:
    - In `export_static.py`, heavy base64 video streams and raw images are omitted from `docs/workouts.json` and inlined `const WORKOUTS` in `docs/index.html`.
    - The Workout Hub index loads instantaneously (< 20 KB), while each standalone workout page (`docs/workouts/<id>.html`) remains 100% portable and self-contained with embedded video snippets.
+11. **Instagram Multi-Index / Carousel Auto-Looping & Bifurcation (Max 15 Indexes)**:
+   - **Problem**: Multi-video Instagram posts/reels containing query parameters like `index={num}` or `img_index={num}` (e.g. `?img_index=1`) represent multi-slide carousels with multiple exercises. Earlier logic only downloaded the first video clip, truncating multi-exercise workouts into a single exercise.
+   - **Solution**: Implemented automatic multi-index detection and looping:
+     - Detects Instagram posts with `*index=` parameter or multi-item posts.
+     - Automatically fetches up to 15 video indexes (using playlist extraction and sequential URL index looping fallback, deduplicating identical clips).
+     - Seamlessly concatenates all clips using FFmpeg concat demuxer (with automatic re-encoding fallback for mismatched video streams).
+     - Injects the compilation timeline structure into Gemini's multimodal prompt, instructing it to evaluate the whole video while recognizing distinct exercise clips (bifurcating exercises without blindly assuming strictly 1 exercise per clip).
+     - Extracts sharp keyframes and looping video snippets for each exercise along the unified timeline.
