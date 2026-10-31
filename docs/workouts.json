@@ -1,5 +1,188 @@
 [
   {
+    "id": "full-upper-body-core-dumbbell--31b919",
+    "title": "Full Upper Body & Core Dumbbell Sculpt Circuit",
+    "category": "Upper Body",
+    "difficulty": "Intermediate",
+    "estimated_duration": "15–20 min",
+    "blocks_count": "1 Circuit",
+    "description": "A comprehensive upper body and core targeting workout using dumbbells. Perfect for building muscular endurance and strength at home across all major upper body muscle groups.",
+    "equipment": [
+      "Yoga Mat",
+      "Dumbbells"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Dumbbell Floor Press",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Chest",
+          "Triceps",
+          "Front Deltoids"
+        ],
+        "cues": [
+          "Lie flat on the mat with knees bent and feet flat on the floor.",
+          "Press dumbbells upward until arms are fully extended directly over your chest."
+        ],
+        "why": "Targets the pectoral muscles while reducing shoulder strain compared to a traditional bench press.",
+        "start_sec": 0.0,
+        "end_sec": 2.0,
+        "timestamp_percent": 7,
+        "has_video": true
+      },
+      {
+        "step_number": 2,
+        "title": "Kneeling Dumbbell Front Raise",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Anterior Deltoids",
+          "Upper Chest"
+        ],
+        "cues": [
+          "Maintain a tall kneeling position with core engaged.",
+          "Raise weights forward and up to shoulder level with controlled motion."
+        ],
+        "why": "Isolates the anterior deltoids for rounder shoulder definition.",
+        "start_sec": 2.0,
+        "end_sec": 3.5,
+        "timestamp_percent": 18,
+        "has_video": true
+      },
+      {
+        "step_number": 3,
+        "title": "Kneeling Dumbbell Bicep Curls",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Biceps Brachii"
+        ],
+        "cues": [
+          "Keep elbows pinned close to your torso while kneeling tall.",
+          "Supinate wrists as you curl the dumbbells toward shoulder height."
+        ],
+        "why": "Strengthens and isolates the arm flexors without momentum.",
+        "start_sec": 3.5,
+        "end_sec": 5.0,
+        "timestamp_percent": 28,
+        "has_video": true
+      },
+      {
+        "step_number": 4,
+        "title": "Kneeling Dumbbell Tricep Kickbacks",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Triceps"
+        ],
+        "cues": [
+          "Hinge forward at hips while kneeling, keeping upper arms parallel to the ground.",
+          "Extend forearms backward until elbows are fully straight."
+        ],
+        "why": "Provides peak contraction at the top range of motion for tricep tone.",
+        "start_sec": 5.0,
+        "end_sec": 6.5,
+        "timestamp_percent": 38,
+        "has_video": true
+      },
+      {
+        "step_number": 5,
+        "title": "Kneeling Bent-Over Dumbbell Rows",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Latissimus Dorsi",
+          "Rhomboids",
+          "Rear Deltoids"
+        ],
+        "cues": [
+          "Hinge forward with a flat back and active core.",
+          "Pull elbows back toward hip level, squeezing scapulae together."
+        ],
+        "why": "Develops back width and posterior chain posture.",
+        "start_sec": 6.5,
+        "end_sec": 8.0,
+        "timestamp_percent": 48,
+        "has_video": true
+      },
+      {
+        "step_number": 6,
+        "title": "Kneeling Dumbbell Shrugs",
+        "dose": "3 × 15 reps",
+        "target_muscles": [
+          "Trapezius"
+        ],
+        "cues": [
+          "Stand tall on knees with arms extended straight downward.",
+          "Elevate shoulders straight up toward your ears, paused briefly at peak tension."
+        ],
+        "why": "Builds upper trapezius strength and neck stability.",
+        "start_sec": 8.0,
+        "end_sec": 9.5,
+        "timestamp_percent": 58,
+        "has_video": true
+      },
+      {
+        "step_number": 7,
+        "title": "Dumbbell Russian Twists",
+        "dose": "3 × 20 reps",
+        "target_muscles": [
+          "Obliques",
+          "Abdominals"
+        ],
+        "cues": [
+          "Sit on floor with heels lifted slightly or touching ground, torso leaned back 45 degrees.",
+          "Rotate shoulders and dumbbell side-to-side in a controlled rhythm."
+        ],
+        "why": "Strengthens rotational core strength and obliques.",
+        "start_sec": 9.5,
+        "end_sec": 11.0,
+        "timestamp_percent": 68,
+        "has_video": true
+      },
+      {
+        "step_number": 8,
+        "title": "Weighted Dumbbell Crunches",
+        "dose": "3 × 15 reps",
+        "target_muscles": [
+          "Upper Rectus Abdominis"
+        ],
+        "cues": [
+          "Hold dumbbell above chest while curling upper spine off mat.",
+          "Contract abs fully at top position before lowering under control."
+        ],
+        "why": "Target upper abdominal wall with added resistance for core strength.",
+        "start_sec": 11.0,
+        "end_sec": 13.0,
+        "timestamp_percent": 80,
+        "has_video": true
+      },
+      {
+        "step_number": 9,
+        "title": "Straight Arm Press Crunches",
+        "dose": "3 × 12 reps",
+        "target_muscles": [
+          "Rectus Abdominis",
+          "Core"
+        ],
+        "cues": [
+          "Lie back and press dumbbells vertically toward ceiling.",
+          "Perform vertical reach crunch focusing on lifting shoulder blades clean off mat."
+        ],
+        "why": "Maximizes vertical core contraction and shoulder stability.",
+        "start_sec": 13.0,
+        "end_sec": 15.0,
+        "timestamp_percent": 93,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Perform each move with a moderate dumbbell weight that allows strict control throughout.",
+      "Exhale on effort (pressing/raising/twisting) and inhale on return movement."
+    ],
+    "source_url": "https://www.instagram.com/reels/DeXMVq0o-Ix/",
+    "platform": "Instagram",
+    "thumbnail_url": "https://instagram.famd4-1.fna.fbcdn.net/v/t15.5256-10/839872340_1097695512628933_6337781200143979372_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ig_cache_key=NDAwNTcyNDY1OTIxNjgwMjM1Mw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZmlyc3RfZnJhbWVfdGh1bWJuYWlsLkMzIn0%3D&_nc_ohc=4LNMVb9Tnc4Q7kNvwE9BQ8j&_nc_oc=AdoGze0avJjln6wnS6R7Yo-We4-VOUiVRio2mSXyN_fRjDvylXxEfev73GIjSpFhY3r1mewZytaQxCIUmZJltio6&_nc_zt=23&_nc_ht=instagram.famd4-1.fna&_nc_gid=xBcJ5nSd5EQTci2uitYSaw&_nc_ss=7b689&oh=00_AQS_aC2GNeQTbCIPg-3fStfk3G4C7J8E_7iG53cj4asXCQ&oe=6AEBB719",
+    "generated_at": "2026-10-31T17:00:44.969080"
+  },
+  {
     "id": "5-dumbbell-curl-variations-for-46746e",
     "title": "5 Dumbbell Curl Variations for Biceps & Forearms",
     "category": "Upper Body",
