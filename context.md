@@ -17,6 +17,8 @@ Workout Helper is a full-stack, AI-powered fitness routine extractor inspired by
 │  • Flask Web Server (http://localhost:8081 & http://<LAN_IP>:8081)     │
 │  • Desktop Launcher & Zenity Control Menu (~/Desktop/workout-server)  │
 │  • yt-dlp Video & Subtitle Extractor (Direct signed URL parsing)       │
+│  • Multi-Index Carousel Handler (auto-loops up to 15 index videos)    │
+│  • FFmpeg Video Stitcher & Concat Demuxer (unified compilation timeline)│
 │  • Multimodal Gemini Video Scanner (gemini-3.5-flash / 3.7 / 3.8)      │
 │  • FFmpeg Exercise Snipper (Looping H.264 MP4 clips per exercise)     │
 │  • OpenCV Keyframe Extraction (Laplacian variance sharpness filtering) │
@@ -112,10 +114,25 @@ workout/
    - In `export_static.py`, heavy base64 video streams and raw images are omitted from `docs/workouts.json` and inlined `const WORKOUTS` in `docs/index.html`.
    - The Workout Hub index loads instantaneously (< 20 KB), while each standalone workout page (`docs/workouts/<id>.html`) remains 100% portable and self-contained with embedded video snippets.
 11. **Instagram Multi-Index / Carousel Auto-Looping & Bifurcation (Max 15 Indexes)**:
-   - **Problem**: Multi-video Instagram posts/reels containing query parameters like `index={num}` or `img_index={num}` (e.g. `?img_index=1`) represent multi-slide carousels with multiple exercises. Earlier logic only downloaded the first video clip, truncating multi-exercise workouts into a single exercise.
-   - **Solution**: Implemented automatic multi-index detection and looping:
-     - Detects Instagram posts with `*index=` parameter or multi-item posts.
-     - Automatically fetches up to 15 video indexes (using playlist extraction and sequential URL index looping fallback, deduplicating identical clips).
-     - Seamlessly concatenates all clips using FFmpeg concat demuxer (with automatic re-encoding fallback for mismatched video streams).
-     - Injects the compilation timeline structure into Gemini's multimodal prompt, instructing it to evaluate the whole video while recognizing distinct exercise clips (bifurcating exercises without blindly assuming strictly 1 exercise per clip).
-     - Extracts sharp keyframes and looping video snippets for each exercise along the unified timeline.
+   - **Problem**: Multi-video Instagram posts/reels containing query parameters like `index={num}` or `img_index={num}` (e.g. `?img_index=1`) represent multi-slide carousels where each slide typically features a distinct exercise. Earlier logic used `--no-playlist` and `-o video.mp4`, and `json.loads` failed on multi-line metadata dumps. As a result, only the very first slide was downloaded, truncating complete multi-exercise routines (such as 5-part dumbbell curls) into a single exercise.
+   - **Two-Phase Index Fetching Strategy**:
+     - *Detection*: Matches any Instagram URL containing `[?&](?:[a-zA-Z0-9_]*index)=\d+` or where `yt-dlp` dumps $> 1$ JSON metadata entries.
+     - *Phase 1 (Batch Playlist Extraction)*: Requests `--playlist-items 1-15` via `yt-dlp` to pull all available carousel items in parallel (~10s).
+     - *Phase 2 (Sequential Index Looping Fallback)*: If batch extraction yields $\le 1$ clip but an index parameter is present, loops sequentially from `idx = 1` to `15`, rewriting the URL parameter (`img_index={idx}` / `index={idx}`) and downloading each slide individually. Stops immediately when a 404/empty response or duplicate MD5 file hash is encountered.
+   - **Video Stitching & Unified Compilation Timeline**:
+     - Measures exact frame counts and FPS for every downloaded clip via OpenCV (`cv2.VideoCapture`).
+     - Concatenates the clips into a single continuous video (`merged_video.mp4`) using the high-performance FFmpeg concat demuxer (`-f concat -safe 0 -c copy`). If streams differ in codec or dimensions, automatically falls back to `-filter_complex` scale-and-pad re-encoding at 720x1280 30fps.
+     - Builds an internal segment map (`clip_segments`) tracking exact start and end seconds for each clip within the unified timeline:
+       e.g., Clip 1 (0.0s–14.6s), Clip 2 (14.6s–30.1s), Clip 3 (30.1s–45.4s), etc.
+   - **Multimodal Prompt Guidance & Bifurcation**:
+     - Uploads the merged video to the Gemini Files API and passes the compilation breakdown directly in the prompt.
+     - Instructs Gemini to evaluate the video as a unified whole and bifurcate exercises cleanly using the clip boundaries as reference points, while explicitly cautioning *not* to assume every clip is always strictly one exercise (allowing multiple exercises or variations within a single clip, or multi-clip progressions).
+     - Requires start/end timestamps to be absolute seconds across the full compilation video timeline (0.0s to total duration).
+   - **Automated Timestamp Validation & Offset Adjustment**:
+     - If the model returns local relative timestamps (e.g., starting at 0s for each exercise), the engine detects this condition (`all_near_zero`) and automatically rebases each exercise's timestamps by adding `segment['start_sec']`.
+     - Validates and clamps all timestamps to video boundaries, falling back to segment boundaries if any timestamps are missing.
+   - **FFmpeg Exercise Snipping & OpenCV Keyframes**:
+     - Slices individual looping video snippets (max 12s, centered on exercise midpoint) directly from the merged video for each exercise.
+     - Computes the sharpest keyframe using Laplacian variance scoring around each exercise's midpoint for poster frames.
+   - **Stale HTML Purge on Re-Extraction**:
+     - When re-extracting an existing workout URL, any previous HTML file with a different slug ID is automatically unlinked from `docs/workouts/` to eliminate orphaned files on GitHub Pages.

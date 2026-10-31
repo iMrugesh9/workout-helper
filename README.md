@@ -7,6 +7,7 @@ Extract structured, interactive workout routines from **YouTube Shorts** and **I
 ## ✨ Features
 
 - 🎬 Works with **YouTube Shorts** and **public Instagram Reels**
+- 🔄 **Instagram Carousel & Multi-Index Auto-Looping** — automatically loops up to 15 indexes for multi-video posts/reels (`?img_index=`, `?index=`), stitches clips with FFmpeg, and analyzes the full routine as a unified whole
 - 🤖 **Multimodal Gemini AI Video Scanning** — uploads and evaluates full video streams to identify all distinct exercises and precise start/end timestamps
 - ✂️ **Automatic Video Snippet Trimming (FFmpeg)** — cuts compact, mobile-optimized looping H.264 MP4 clips for each exercise
 - 📸 **OpenCV Keyframe Extraction** — selects the sharpest demonstration frames using Laplacian variance scoring for video poster frames and fallback guides
