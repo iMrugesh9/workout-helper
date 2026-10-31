@@ -1,5 +1,48 @@
 [
   {
+    "id": "ultimate-dumbbell-biceps-worko-62870e",
+    "title": "Ultimate Dumbbell Biceps Workout",
+    "category": "Upper Body",
+    "difficulty": "Intermediate",
+    "estimated_duration": "10–15 min",
+    "blocks_count": "1 Circuit",
+    "description": "A focused upper body exercise designed to build total bicep size and strength. Utilizing seated dumbbell curls isolates the biceps brachii while minimizing momentum.",
+    "equipment": [
+      "Dumbbells",
+      "Bench"
+    ],
+    "exercises": [
+      {
+        "step_number": 1,
+        "title": "Seated Dumbbell Bicep Curl",
+        "dose": "3 × 10–12 reps",
+        "target_muscles": [
+          "Biceps Brachii",
+          "Brachialis",
+          "Forearms"
+        ],
+        "cues": [
+          "Sit upright on the bench with feet flat on the floor",
+          "Keep elbows tucked close to your torso",
+          "Rotate your palms upward (supinate) as you lift and squeeze at the top"
+        ],
+        "why": "Effectively isolates the biceps overall to increase peak height, arm thickness, and grip strength.",
+        "start_sec": 1.0,
+        "end_sec": 14.0,
+        "timestamp_percent": 50,
+        "has_video": true
+      }
+    ],
+    "tips": [
+      "Control the lowering phase (eccentric motion) for 2 to 3 seconds to maximize muscle growth.",
+      "Avoid using shoulder or torso swing to keep complete tension on the biceps."
+    ],
+    "source_url": "https://www.instagram.com/p/DerJ5P1GFjj/?img_index=1",
+    "platform": "Instagram",
+    "thumbnail_url": "",
+    "generated_at": "2026-10-31T16:16:54.592222"
+  },
+  {
     "id": "goodbye-belly-full-body-dumbbe-384c77",
     "title": "Goodbye Belly Full Body Dumbbell Home Workout",
     "category": "Full Body",
